@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/customer_home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_list"
+        android:icon="@drawable/customer_foodtruck"
+        android:title="All FoodTruck" />
+
+    <item
+        android:id="@+id/navigation_order"
+        android:icon="@drawable/order"
+        android:title="My Order" />
+
+    <item
+        android:id="@+id/navigation_farvorite"
+        android:icon="@drawable/customer_favorite"
+        android:title="My Favorite" />
+
+</menu>

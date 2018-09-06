@@ -20,6 +20,9 @@
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.CustomerHomeActivity" />
+        <activity
+            android:name=".Activity.SellerHomeActivity"
+            android:label="@string/title_activity_seller_home"></activity>
     </application>
 
 </manifest>

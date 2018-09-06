@@ -1,22 +1,18 @@
 package org.androidtown.foodtruckgram.Activity;
 
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.*;
 import org.androidtown.foodtruckgram.R;
 
-import java.util.Map;
-
-public class CustomerHomeActivity extends AppCompatActivity {
-
+public class SellerHomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
@@ -34,38 +30,36 @@ public class CustomerHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_home);
+        setContentView(R.layout.activity_seller_home);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (ViewPager) findViewById(R.id.viewPager_seller);
         viewPager.setOffscreenPageLimit(4);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_seller);
 
-        currentMenu = R.id.navigation_home;
+        currentMenu = R.id.navigation_open;
         setupViewPager(viewPager);
         prevMenuItem = bottomNavigationView.getMenu().getItem(0);
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        currentMenu = R.id.navigation_home;
+                    case R.id.navigation_open:
+                        currentMenu = R.id.navigation_open;
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.navigation_list:
-                        currentMenu = R.id.navigation_list;
-                        ;
+                    case R.id.navigation_order_seller:
+                        currentMenu = R.id.navigation_order_seller;;
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.navigation_order:
-                        currentMenu = R.id.navigation_order;
+                    case R.id.navigation_menu:
+                        currentMenu = R.id.navigation_menu;
                         viewPager.setCurrentItem(2);
                         break;
-                    case R.id.navigation_farvorite:
-                        currentMenu = R.id.navigation_farvorite;
+                    case R.id.navigation_review:
+                        currentMenu = R.id.navigation_review;
                         viewPager.setCurrentItem(3);
                         break;
                 }
@@ -110,5 +104,5 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
     }
-}
 
+}

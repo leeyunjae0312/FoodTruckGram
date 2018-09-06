@@ -28,10 +28,20 @@ public class LoginActivity extends AppCompatActivity {
         password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
 
         //로그인 확인 작업
+        //Userinfo의 role확인
         //Seller페이지 Customer페이지 구분해서 넘기기
 
-        Intent intent = new Intent(getApplicationContext(),CustomerHomeActivity.class);
-        startActivity(intent);
-        finish();
+
+        if(userid.equals("seller")){
+            Intent intent = new Intent(getApplicationContext(),SellerHomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(),CustomerHomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 }
