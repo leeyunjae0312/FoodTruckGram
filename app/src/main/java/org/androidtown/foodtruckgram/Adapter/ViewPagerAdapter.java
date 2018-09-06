@@ -16,10 +16,7 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabCount;
-    private MapFragment mapFragment = new MapFragment();
-    private TruckListFragment truckListFragment = new TruckListFragment();
-    private BookmarkFragment bookmarkFragment = new BookmarkFragment();
-    private MyOrderFragment myOrderFragment = new MyOrderFragment();
+
 
     public List<Fragment> mFragmentList = new ArrayList<>();
 
@@ -27,31 +24,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.tabCount = tabCount;
     }
-
-    /*@Override
-    public Fragment getItem(int position) {
-
-        // Returning the current tabs
-        switch (position) {
-            case 0:
-                return mapFragment;
-            case 1:
-                return truckListFragment;
-            case 2:
-                return myOrderFragment;
-            case 3:
-                return bookmarkFragment;
-            default:
-                return null;
-        }
-    }
-
-    @Override
-    public int getCount() {
-        return tabCount;
-    }*/
-
-
 
 
     @Override

@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.BlankFragment;
 import org.androidtown.foodtruckgram.Fragment.BookmarkFragment;
 import org.androidtown.foodtruckgram.Fragment.MapFragment;
 import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
@@ -31,7 +30,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    BlankFragment blankFragment;
     BookmarkFragment bookmarkFragment;
     MapFragment mapFramgment;
     MyOrderFragment myOrderFragment;
@@ -54,8 +52,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         prevMenuItem = bottomNavigationView.getMenu().getItem(0);
 
-
-//        fragment = mapFramgment;
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -105,7 +101,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),3);
 
-        blankFragment = new BlankFragment();
         mapFramgment = new MapFragment();
         truckListFragment = new TruckListFragment();
         myOrderFragment = new MyOrderFragment();
