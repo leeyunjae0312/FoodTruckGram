@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FoodTruckGram.iml" filepath="$PROJECT_DIR$/FoodTruckGram.iml" />
+      <module fileurl="file://C:\Team_Glory\FoodTruckGram\FoodTruckGram.iml" filepath="C:\Team_Glory\FoodTruckGram\FoodTruckGram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Team_Glory\FoodTruckGram\app\app.iml" filepath="C:\Team_Glory\FoodTruckGram\app\app.iml" />
     </modules>
   </component>
 </project>
