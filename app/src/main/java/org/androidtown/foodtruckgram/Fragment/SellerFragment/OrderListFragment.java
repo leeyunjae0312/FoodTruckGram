@@ -12,10 +12,10 @@ import org.androidtown.foodtruckgram.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SellerReviewFragment extends Fragment {
+public class OrderListFragment extends Fragment {
 
 
-    public SellerReviewFragment() {
+    public OrderListFragment() {
         // Required empty public constructor
     }
 
@@ -23,10 +23,8 @@ public class SellerReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seller_review, container, false);
-
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_order_list, container, false);
     }
 
 }

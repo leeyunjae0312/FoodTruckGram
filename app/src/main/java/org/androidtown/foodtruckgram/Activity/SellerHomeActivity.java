@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.*;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
 import org.androidtown.foodtruckgram.R;
 
 public class SellerHomeActivity extends AppCompatActivity {
@@ -19,10 +23,11 @@ public class SellerHomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    FavoriteFragment favoriteFragment;
-    MapFragment mapFramgment;
-    MyOrderFragment myOrderFragment;
-    TruckListFragment truckListFragment;
+    OpenCloseFragment openCloseFragment;
+    OrderListFragment orderListFragment;
+    MenuFragment menuFragment;
+    ReviewFragment reviewFragment;
+
 
     int currentMenu;
     MenuItem prevMenuItem;
@@ -91,16 +96,15 @@ public class SellerHomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4);
 
-        mapFramgment = new MapFragment();
-        truckListFragment = new TruckListFragment();
-        myOrderFragment = new MyOrderFragment();
-        favoriteFragment = new FavoriteFragment();
+        openCloseFragment = new OpenCloseFragment();
+        orderListFragment = new OrderListFragment();
+        menuFragment = new MenuFragment();
+        reviewFragment = new ReviewFragment();
 
-        viewPagerAdapter.addFragment(mapFramgment); // home
-        viewPagerAdapter.addFragment(truckListFragment);
-        viewPagerAdapter.addFragment(myOrderFragment);
-        viewPagerAdapter.addFragment(favoriteFragment);
-
+        viewPagerAdapter.addFragment(openCloseFragment); // home
+        viewPagerAdapter.addFragment(orderListFragment);
+        viewPagerAdapter.addFragment(menuFragment);
+        viewPagerAdapter.addFragment(reviewFragment);
 
         viewPager.setAdapter(viewPagerAdapter);
     }

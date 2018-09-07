@@ -11,6 +11,10 @@ import android.view.MenuItem;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.*;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
+import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
 import org.androidtown.foodtruckgram.R;
 
 import java.util.Map;
@@ -106,7 +110,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(truckListFragment);
         viewPagerAdapter.addFragment(myOrderFragment);
         viewPagerAdapter.addFragment(favoriteFragment);
-
 
         viewPager.setAdapter(viewPagerAdapter);
     }
