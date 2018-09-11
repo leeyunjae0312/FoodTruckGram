@@ -61,7 +61,7 @@ public class MapFragment extends Fragment {
         mapLayout.addView(tMapView);
 
 ////터치 테스트////
-        tMapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
+/*        tMapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
             @Override
             public boolean onPressEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
                 Toast.makeText(getActivity(), "onPress~!", Toast.LENGTH_SHORT).show();
@@ -73,7 +73,7 @@ public class MapFragment extends Fragment {
                 //Toast.makeText(MapEvent.this, "onPressUp~!", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        });
+        });*/
 
         return view;
     }
