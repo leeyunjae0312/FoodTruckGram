@@ -83,11 +83,11 @@ public class LoginActivity extends AppCompatActivity {
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i(TAG, "응답코드"+statusCode);
+            //Log.i(TAG, "응답코드"+statusCode);
 
             String body = post.getBody();
 
-            Log.i(TAG, "body : "+body);
+            //Log.i(TAG, "body : "+body);
 
             return body;
 
