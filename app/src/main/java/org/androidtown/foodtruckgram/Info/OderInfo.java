@@ -23,5 +23,51 @@ public class OderInfo {
         }
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getFoodTruckName() {
+        return foodTruckName;
+    }
+
+    public void setFoodTruckName(String foodTruckName) {
+        this.foodTruckName = foodTruckName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getMenuPrice() {
+        return menuPrice;
+    }
+
+    public void setMenuPrice(String menuPrice) {
+        this.menuPrice = menuPrice;
+    }
+
+    public ArrayList<MenuInfo> getOrderMenuList() {
+        return orderMenuList;
+    }
+
+    public void setOrderMenuList(ArrayList<MenuInfo> orderMenuList) {
+        this.orderMenuList = orderMenuList;
+    }
 }

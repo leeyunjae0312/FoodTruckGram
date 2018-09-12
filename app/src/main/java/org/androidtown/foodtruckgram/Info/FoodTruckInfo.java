@@ -33,6 +33,14 @@ public class FoodTruckInfo {
         this.storeName = storeName;
     }
 
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
     public String getOwnerName() {
         return ownerName;
     }
