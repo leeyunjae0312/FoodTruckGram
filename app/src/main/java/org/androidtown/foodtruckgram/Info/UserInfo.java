@@ -1,5 +1,7 @@
 package org.androidtown.foodtruckgram.Info;
 
+import java.util.ArrayList;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,7 @@ public class UserInfo implements Serializable {
 
     private static UserInfo userInfo = new UserInfo();
     private String userId, password, userName, role, tel;
-    //+찜 목록
+    private ArrayList<FoodTruckInfo> myFavoriteList;
 
     private UserInfo(){
 

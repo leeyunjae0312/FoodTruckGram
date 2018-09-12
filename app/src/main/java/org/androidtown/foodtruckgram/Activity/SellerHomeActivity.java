@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
@@ -27,7 +28,6 @@ public class SellerHomeActivity extends AppCompatActivity {
     OrderListFragment orderListFragment;
     MenuFragment menuFragment;
     ReviewFragment reviewFragment;
-
 
     int currentMenu;
     MenuItem prevMenuItem;
@@ -72,7 +72,6 @@ public class SellerHomeActivity extends AppCompatActivity {
             }
         });
 
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -91,6 +90,7 @@ public class SellerHomeActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

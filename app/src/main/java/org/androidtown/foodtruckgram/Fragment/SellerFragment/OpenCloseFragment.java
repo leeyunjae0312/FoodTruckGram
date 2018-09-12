@@ -4,10 +4,13 @@ package org.androidtown.foodtruckgram.Fragment.SellerFragment;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skt.Tmap.TMapPoint;
@@ -27,6 +30,7 @@ public class OpenCloseFragment extends Fragment {
     RelativeLayout mapLayout;
     TMapView tMapView;
     String apiKey = "1c8d9930-5a2b-4ed2-8c32-fa7d9a216834";
+    double longitude,latitude;
 
     public OpenCloseFragment() {
         // Required empty public constructor
@@ -58,16 +62,44 @@ public class OpenCloseFragment extends Fragment {
             @Override
             public boolean onPressEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
                 Toast.makeText(getActivity(), "onPress~!", Toast.LENGTH_SHORT).show();
+                tMapView.setCenterPoint(tMapPoint.getLongitude(),tMapPoint.getLatitude());
+                //tMapView.setLocationPoint(tMapPoint.getLongitude(),tMapPoint.getLatitude());
+                latitude = tMapPoint.getLatitude();
+                longitude = tMapPoint.getLongitude();
                 return false;
             }
 
             @Override
             public boolean onPressUpEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                //Toast.makeText(MapEvent.this, "onPressUp~!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "onPressUp~!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
+
+        final TextView textView = (TextView)view.findViewById(R.id.seller_openPage_textView);
+        final Button openBtn = (Button)view.findViewById(R.id.openBtn);
+        final Button closeBtn = (Button)view.findViewById(R.id.closeBtn);
+        openBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText("현재 위치에서 폐점하시겠습니까?");
+                openBtn.setVisibility(View.INVISIBLE);
+                closeBtn.setVisibility(View.VISIBLE);
+                Log.i("OpenClose","latitude = "+tMapView.getLatitude()+"longitude = "+tMapView.getLongitude());
+            }
+        });
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText("현재 위치에서 개점하시겠습니까?");
+                closeBtn.setVisibility(View.INVISIBLE);
+                openBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
         return view;
     }
+
 
 }
