@@ -1,22 +1,29 @@
 package org.androidtown.foodtruckgram.Activity;
 
-import android.support.v4.app.Fragment;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
-import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.*;
-import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
-import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
-import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
-import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
-import org.androidtown.foodtruckgram.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
+import org.androidtown.foodtruckgram.Fragment.FavoriteFragment;
+import org.androidtown.foodtruckgram.Fragment.MapFragment;
+import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
+import org.androidtown.foodtruckgram.Fragment.TruckListFragment;
+import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.UserInfo;
+import org.androidtown.foodtruckgram.R;
+import org.androidtown.foodtruckgram.Server.HttpClient;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CustomerHomeActivity extends AppCompatActivity {
@@ -35,10 +42,20 @@ public class CustomerHomeActivity extends AppCompatActivity {
     int currentMenu;
     MenuItem prevMenuItem;
 
+    UserInfo userInfo = UserInfo.getUserInfo();
+    List<FoodTruckInfo> foodTruckInfos;
+    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    FoodTruckDB foodTruckDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_home);
+
+        foodTruckDB = new FoodTruckDB();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("userId", userInfo.getUserId());
+        foodTruckDB.execute(params);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(4);
@@ -112,6 +129,43 @@ public class CustomerHomeActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(favoriteFragment);
 
         viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_getFoodTruckInfoList);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+            Gson gson = new Gson();
+
+            List<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
+
+            foodTruckInfos = info;
+
+        }
     }
 }
 
