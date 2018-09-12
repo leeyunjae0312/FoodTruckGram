@@ -1,10 +1,15 @@
 package org.androidtown.foodtruckgram.Activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +33,7 @@ import java.util.Map;
 
 public class CustomerHomeActivity extends AppCompatActivity {
 
+    ActionBar actionBar;
 
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
@@ -65,6 +71,10 @@ public class CustomerHomeActivity extends AppCompatActivity {
         currentMenu = R.id.navigation_home;
         setupViewPager(viewPager);
         prevMenuItem = bottomNavigationView.getMenu().getItem(0);
+
+
+        actionBar = getSupportActionBar();
+        actionBar.hide();
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
