@@ -1,5 +1,6 @@
 package org.androidtown.foodtruckgram.Activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,10 +13,12 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
+import org.androidtown.foodtruckgram.Fragment.*;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
+import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
@@ -26,6 +29,7 @@ import java.util.Map;
 
 public class SellerHomeActivity extends AppCompatActivity {
 
+    private final String TAG = "SellerHomeActivity";
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -39,7 +43,7 @@ public class SellerHomeActivity extends AppCompatActivity {
     int currentMenu;
     MenuItem prevMenuItem;
     UserInfo userInfo = UserInfo.getUserInfo();
-    FoodTruckInfo foodTruckInfo = new FoodTruckInfo();
+    public FoodTruckInfo foodTruckInfo;
 
     String serverURL_getFoodTruckInfo = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/getFoodTruckInfoByStoreName";
     FoodTruckDB  foodTruckDB;
@@ -54,61 +58,6 @@ public class SellerHomeActivity extends AppCompatActivity {
         params.put("userId", userInfo.getUserId());
         foodTruckDB.execute(params);
 
-
-        viewPager = (ViewPager) findViewById(R.id.viewPager_seller);
-        viewPager.setOffscreenPageLimit(4);
-
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_seller);
-
-        currentMenu = R.id.navigation_open;
-        setupViewPager(viewPager);
-        prevMenuItem = bottomNavigationView.getMenu().getItem(0);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_open:
-                        currentMenu = R.id.navigation_open;
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.navigation_order_seller:
-                        currentMenu = R.id.navigation_order_seller;;
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.navigation_menu:
-                        currentMenu = R.id.navigation_menu;
-                        viewPager.setCurrentItem(2);
-                        break;
-                    case R.id.navigation_review:
-                        currentMenu = R.id.navigation_review;
-                        viewPager.setCurrentItem(3);
-                        break;
-                }
-                return true;
-            }
-        });
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -117,6 +66,10 @@ public class SellerHomeActivity extends AppCompatActivity {
         openCloseFragment = new OpenCloseFragment();
         orderListFragment = new OrderListFragment();
         menuFragment = new MenuFragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putSerializable("foodTruckInfo",foodTruckInfo);
+        Log.i(TAG,""+foodTruckInfo.getOwnerName());
+        menuFragment.setArguments(bundle);
         reviewFragment = new ReviewFragment();
 
         viewPagerAdapter.addFragment(openCloseFragment); // home
@@ -158,10 +111,64 @@ public class SellerHomeActivity extends AppCompatActivity {
             Gson gson = new Gson();
 
             FoodTruckInfo info = gson.fromJson(aVoid, FoodTruckInfo.class);
-
             foodTruckInfo = info;
 
             Log.i("yunjae", "storeName = " + foodTruckInfo.getStoreName() + " ownerName = " + foodTruckInfo.getOwnerName() + " ownerId = " + foodTruckInfo.getOwnerId() + " menuList0 = " + foodTruckInfo.getMenuList().get(0).getMenuName());
+
+
+            viewPager = (ViewPager) findViewById(R.id.viewPager_seller);
+            viewPager.setOffscreenPageLimit(4);
+
+            bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_seller);
+
+            currentMenu = R.id.navigation_open;
+            setupViewPager(viewPager);
+            prevMenuItem = bottomNavigationView.getMenu().getItem(0);
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_open:
+                            currentMenu = R.id.navigation_open;
+                            viewPager.setCurrentItem(0);
+                            break;
+                        case R.id.navigation_order_seller:
+                            currentMenu = R.id.navigation_order_seller;;
+                            viewPager.setCurrentItem(1);
+                            break;
+                        case R.id.navigation_menu:
+                            currentMenu = R.id.navigation_menu;
+                            viewPager.setCurrentItem(2);
+                            break;
+                        case R.id.navigation_review:
+                            currentMenu = R.id.navigation_review;
+                            viewPager.setCurrentItem(3);
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
+                    bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                    prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
 
 
         }

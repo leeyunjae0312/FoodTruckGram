@@ -6,6 +6,7 @@ package org.androidtown.foodtruckgram.Info;
 
 public class MenuInfo {
 
+    private String storeName;
     private String menuImage;
     private String menuName;
     private String menuPrice;
@@ -29,6 +30,14 @@ public class MenuInfo {
         setMenuImage(menuImage);
         setMenuIntroduce(menuIntroduce);
         soldOut = false;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getMenuImage() {

@@ -114,7 +114,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         MenuInfo menuInfo = menuList.get(position);
 
         // Set item views based on your views and data model
-        viewHolder.menuImage.setImageResource(R.drawable.menu);  //menu image edit
+        viewHolder.menuImage.setImageResource(R.drawable.burger);  //menu image edit
         viewHolder.name.setText(menuInfo.getMenuName());
         viewHolder.price.setText(menuInfo.getMenuPrice());
         viewHolder.introduce.setText(menuInfo.getMenuIntroduce());

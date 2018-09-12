@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.androidtown.foodtruckgram.Activity.SellerHomeActivity;
 import org.androidtown.foodtruckgram.Adapter.SellerMenuListAdapter;
+import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.R;
 
@@ -24,10 +26,9 @@ public class MenuFragment extends Fragment {
     private ArrayList<MenuInfo> menuList;
     private SellerMenuListAdapter adapter;
 
-    public MenuFragment() {
-        // Required empty public constructor
-    }
+    public MenuFragment(){
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,10 +38,12 @@ public class MenuFragment extends Fragment {
 
         recyclerView = (RecyclerView)view.findViewById(R.id.seller_menu_recyclerView);
 
-        menuList = new ArrayList<MenuInfo>();
-        menuList.add(new MenuInfo("새우버터구이","6000원","menuImage","새우+버터+파슬리"));
+        FoodTruckInfo foodTruckInfo = (FoodTruckInfo)getArguments().getSerializable("foodTruckInfo");
+        menuList = foodTruckInfo.getMenuList();
+
+        /*menuList.add(new MenuInfo("새우버터구이","6000원","menuImage","새우+버터+파슬리"));
         menuList.add(new MenuInfo("칠리새우","8000","menuImage"));
-        menuList.add(new MenuInfo("큐브스테이크","10000","menuImage"));
+        menuList.add(new MenuInfo("큐브스테이크","10000","menuImage"));*/
 
         recyclerView.setHasFixedSize(true);
         adapter = new SellerMenuListAdapter(getActivity(),menuList);

@@ -25,7 +25,8 @@
             android:id="@+id/etId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:text="aaa" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,8 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:hint="1234"
             android:inputType="textPassword"
-            android:hint="1234" />
+            android:text="1234" />
     </LinearLayout>
 
     <LinearLayout
