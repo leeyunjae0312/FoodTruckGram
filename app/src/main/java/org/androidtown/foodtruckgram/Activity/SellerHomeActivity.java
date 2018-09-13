@@ -63,14 +63,21 @@ public class SellerHomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4);
 
-        openCloseFragment = new OpenCloseFragment();
-        orderListFragment = new OrderListFragment();
-        menuFragment = new MenuFragment();
+
         Bundle bundle = new Bundle(1);
         bundle.putSerializable("foodTruckInfo",foodTruckInfo);
-        Log.i(TAG,""+foodTruckInfo.getOwnerName());
+
+        openCloseFragment = new OpenCloseFragment();
+        openCloseFragment.setArguments(bundle);
+
+        orderListFragment = new OrderListFragment();
+        orderListFragment.setArguments(bundle);
+
+        menuFragment = new MenuFragment();
         menuFragment.setArguments(bundle);
+
         reviewFragment = new ReviewFragment();
+        reviewFragment.setArguments(bundle);
 
         viewPagerAdapter.addFragment(openCloseFragment); // home
         viewPagerAdapter.addFragment(orderListFragment);

@@ -1,7 +1,16 @@
 package org.androidtown.foodtruckgram.Info;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.google.gson.Gson;
+
+import org.androidtown.foodtruckgram.Server.HttpClient;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 이예지 on 2018-09-11.
@@ -14,16 +23,35 @@ public class FoodTruckInfo implements Serializable {
     private boolean isOpen=false;
     private ArrayList<MenuInfo> menuList;
 
+    String serverURL_openFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckLocationAndOpen";
+    String serverURL_closeFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckClose";
+
+
     public void opening(double longitude, double latitude){
         //서버에 개점알림
         this.longitude = longitude;
         this.latitude = latitude;
         this.isOpen = true;
+
+        FoodTruckOpenDB foodTruckOpenDB = new FoodTruckOpenDB();
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("storeName",storeName);
+        params.put("longitude",longitude+"");
+        params.put("latitude",latitude+"");
+
+        foodTruckOpenDB.execute(params);
     }
 
     public void closing(){
         //서버에 폐점알림
         this.isOpen = false;
+
+        FoodTruckCloseDB foodTruckCloseDB = new FoodTruckCloseDB();
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("storeName",storeName);
+
+        foodTruckCloseDB.execute(params);
     }
 
     public String getStoreName() {
@@ -78,11 +106,81 @@ public class FoodTruckInfo implements Serializable {
         this.menuList = menuList;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
     public boolean isOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    class FoodTruckOpenDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_openFoodTruck);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+        }
     }
+
+    class FoodTruckCloseDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_closeFoodTruck);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+            Gson gson = new Gson();
+        }
+    }
+
+
+
 }
