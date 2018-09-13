@@ -1,6 +1,8 @@
 package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,10 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.androidtown.foodtruckgram.Activity.SellerMenuEditActivity;
+import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.R;
+import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 이예지 on 2018-09-11.
@@ -30,8 +39,9 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         public ImageButton remove,edit;
         private SellerMenuListAdapter adapter;
         private Context context;
+        String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/updateMenu";
 
-        public ViewHolder(final Context context, View itemView, final SellerMenuListAdapter adapter) {
+        public ViewHolder(final Context context, View itemView, final SellerMenuListAdapter adapter, final FoodTruckInfo foodTruckInfo) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
@@ -51,6 +61,8 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                     int position = getLayoutPosition();
                     Toast.makeText(context, name.getText() + Integer.toString(position), Toast.LENGTH_SHORT).show();
                     adapter.removeItem(position);
+
+
                 }
             });
 
@@ -60,6 +72,15 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                 public void onClick(View view) {
                     int position = getLayoutPosition();
                     Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, SellerMenuEditActivity.class);
+                    intent.putExtra("foodTruckInfo",foodTruckInfo);
+                    intent.putExtra("menuImage","menuImageURL");
+                    intent.putExtra("menuName",name.getText());
+                    intent.putExtra("menuPrice",price.getText());
+                    intent.putExtra("menuIntroduce",introduce.getText());
+                    intent.putExtra("serverURL",serverURL);
+                    context.startActivity(intent);
+
                 }
             });
 
@@ -81,11 +102,14 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
     private ArrayList<MenuInfo> menuList;
     // Store the context for easy access
     private Context mContext;
+    FoodTruckInfo foodTruckInfo;
+    String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/deleteMenu";
 
     // Pass in the contact array into the constructor
-    public SellerMenuListAdapter(Context context, ArrayList<MenuInfo> menuList) {
+    public SellerMenuListAdapter(Context context, ArrayList<MenuInfo> menuList, FoodTruckInfo foodTruckInfo) {
         this.menuList = menuList;
         mContext = context;
+        this.foodTruckInfo = foodTruckInfo;
     }
 
     // Easy access to the context object in the recyclerview
@@ -103,7 +127,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         View contactView = inflater.inflate(R.layout.item_seller_menu, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(context, contactView, this);
+        ViewHolder viewHolder = new ViewHolder(context, contactView, this,foodTruckInfo);
         return viewHolder;
     }
 
@@ -130,8 +154,50 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
     }
 
     public void removeItem(int p) {
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("storeName",foodTruckInfo.getStoreName());
+        params.put("menuName",menuList.get(p).getMenuName());
+
+        MenuDeleteDB menuDeleteDB = new MenuDeleteDB();
+        menuDeleteDB.execute(params);
+
         menuList.remove(p);
         notifyItemRemoved(p);
+    }
+
+    public void notifyData(FoodTruckInfo foodTruckInfo){
+        menuList = foodTruckInfo.getMenuList();
+        Log.i("Edit","notifyData()호출");
+        Log.i("Edit","foodTruckInfo.getMenuList().size() : "+foodTruckInfo.getMenuList().size());
+        notifyDataSetChanged();
+    }
+
+    class MenuDeleteDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+            HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            //Log.i(TAG, "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            //Log.i(TAG, "body : "+body);
+
+            return body;
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
 
     }
 }

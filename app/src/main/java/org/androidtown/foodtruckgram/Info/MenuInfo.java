@@ -1,17 +1,18 @@
 package org.androidtown.foodtruckgram.Info;
 
+import java.io.Serializable;
+
 /**
  * Created by 이예지 on 2018-09-11.
  */
 
-public class MenuInfo {
+public class MenuInfo implements Serializable {
 
     private String storeName;
     private String menuImage;
     private String menuName;
     private String menuPrice;
     private String menuIntroduce;
-    private boolean soldOut;
 
     public MenuInfo(){
 
@@ -21,7 +22,6 @@ public class MenuInfo {
         setMenuName(menuName);
         setMenuPrice(menuPrice);
         setMenuImage(menuImage);
-        soldOut = false;
     }
 
     public MenuInfo(String menuName, String menuPrice, String menuImage,String menuIntroduce){
@@ -29,7 +29,6 @@ public class MenuInfo {
         setMenuPrice(menuPrice);
         setMenuImage(menuImage);
         setMenuIntroduce(menuIntroduce);
-        soldOut = false;
     }
 
     public String getStoreName() {
@@ -62,14 +61,6 @@ public class MenuInfo {
 
     public void setMenuPrice(String menuPrice) {
         this.menuPrice = menuPrice;
-    }
-
-    public boolean isSoldOut() {
-        return soldOut;
-    }
-
-    public void setSoldOut(boolean soldOut) {
-        this.soldOut = soldOut;
     }
 
     public String getMenuIntroduce() {

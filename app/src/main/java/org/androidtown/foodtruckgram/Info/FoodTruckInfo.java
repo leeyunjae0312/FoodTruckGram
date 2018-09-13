@@ -1,6 +1,8 @@
 package org.androidtown.foodtruckgram.Info;
 
 import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -18,7 +20,7 @@ import java.util.Map;
 
 public class FoodTruckInfo implements Serializable {
 
-    private String storeName, ownerId, ownerName;
+    private String storeName="", ownerId="", ownerName="";
     private double longitude,latitude;
     private boolean isOpen=false;
     private ArrayList<MenuInfo> menuList;
@@ -90,12 +92,15 @@ public class FoodTruckInfo implements Serializable {
         }
     }
 
-    public void setSoldOut(MenuInfo soldOutMenu){
-        //품절 메뉴 설정
+    public int editMenu(MenuInfo menu){
         for(int i=0;i<menuList.size();i++){
-            if(menuList.get(i).equals(soldOutMenu))
-                menuList.get(i).setSoldOut(true);
+            if(menuList.get(i).getMenuName().equals(menu.getMenuName())) {
+                menuList.remove(i); //기존 메뉴 삭제
+                menuList.add(menu); //수정 메뉴 추가
+                return 1;
+            }
         }
+        return -1;
     }
 
     public ArrayList<MenuInfo> getMenuList() {

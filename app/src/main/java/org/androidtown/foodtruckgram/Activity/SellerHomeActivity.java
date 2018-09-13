@@ -7,11 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
 
+import org.androidtown.foodtruckgram.Adapter.SellerMenuListAdapter;
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.*;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
@@ -86,6 +88,23 @@ public class SellerHomeActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode==RESULT_OK) {
+            foodTruckInfo = (FoodTruckInfo) data.getSerializableExtra("foodTruckInfo");
+
+            Log.i("Edit","Activity - UI 갱신");
+            Log.i("Edit","foodTruckInfo.getMenuList().size()"+foodTruckInfo.getMenuList().size());
+            SellerMenuListAdapter adapter = menuFragment.getAdapter();
+            adapter.notifyData(foodTruckInfo);
+            RecyclerView recyclerView = (RecyclerView)findViewById(R.id.seller_menu_recyclerView);
+            recyclerView.setAdapter(adapter);
+
+        }
+    }
+
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
 

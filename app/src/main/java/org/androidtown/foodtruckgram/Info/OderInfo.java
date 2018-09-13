@@ -1,12 +1,13 @@
 package org.androidtown.foodtruckgram.Info;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by 이예지 on 2018-09-11.
  */
 
-public class OderInfo {
+public class OderInfo implements Serializable {
     private String userName,tel,foodTruckName,userId;
     private String menuPrice;
     private ArrayList<MenuInfo> orderMenuList;
