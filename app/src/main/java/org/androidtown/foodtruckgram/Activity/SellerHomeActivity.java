@@ -15,12 +15,10 @@ import com.google.gson.Gson;
 
 import org.androidtown.foodtruckgram.Adapter.SellerMenuListAdapter;
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.*;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.MenuFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
-import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
@@ -104,6 +102,7 @@ public class SellerHomeActivity extends AppCompatActivity {
 
         }
     }
+
 
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
