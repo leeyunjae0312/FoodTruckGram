@@ -226,7 +226,7 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "메뉴 수정/추가 완료", Toast.LENGTH_SHORT).show();
 
             Log.i("Edit", "메뉴 수정/추가 완료");
-            Log.i("Edit", "foodTruckInfo.getMenuList().size()" + foodTruckInfo.getMenuList().size() + " menuImage = " + menuImage);
+            Log.i("Edit", "foodTruckInfo.getMenuList().size()" + foodTruckInfo.getMenuList().size() + " introduce = " + menuEdit_introduce.getText().toString());
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("foodTruckInfo", foodTruckInfo);

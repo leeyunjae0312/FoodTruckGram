@@ -153,6 +153,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         viewHolder.name.setText(menuInfo.getMenuName());
         viewHolder.price.setText(menuInfo.getMenuPrice());
         viewHolder.introduce.setText(menuInfo.getMenuIntroduce());
+        Log.i("Edit", "introduce = " + menuInfo.getMenuIntroduce());
         viewHolder.menuImageURI.setText(menuInfo.getMenuImage());
 
         Log.i("RecyclerView","name : "+ menuInfo.getMenuName() + " / price : "+menuInfo.getMenuPrice());
