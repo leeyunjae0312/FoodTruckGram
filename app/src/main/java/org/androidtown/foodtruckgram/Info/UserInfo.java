@@ -61,4 +61,21 @@ public class UserInfo implements Serializable {
     public void setTel(String tel) {
         this.tel = tel;
     }
+
+    public ArrayList<FoodTruckInfo> getMyFavoriteList() {
+        return myFavoriteList;
+    }
+
+    public void setMyFavoriteList(ArrayList<FoodTruckInfo> myFavoriteList) {
+        this.myFavoriteList = myFavoriteList;
+    }
+
+    public void addFavoriteTruck(FoodTruckInfo foodTruckInfo){
+        myFavoriteList.add(foodTruckInfo);
+    }
+
+    public void removeFavoriteTruck(FoodTruckInfo foodTruckInfo){
+        myFavoriteList.remove(foodTruckInfo);
+    }
+
 }

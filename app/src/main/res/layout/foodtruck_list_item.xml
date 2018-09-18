@@ -100,12 +100,13 @@
                android:gravity="right"
                android:layout_marginRight="15dp">
 
-               <ImageButton
+               <ImageView
                    android:id="@+id/favorite_btn"
                    android:layout_width="40dp"
                    android:layout_height="40dp"
-                   android:src="@drawable/ic_favorite_border_black_24dp"
-                   android:background="#00ff0000"/>
+                   android:background="@drawable/ic_favorite_border_black_24dp" />
+                   <!--android:src="@drawable/ic_favorite_border_black_24dp"
+                   android:background="#00ff0000"-->/>
 
            </LinearLayout>
 

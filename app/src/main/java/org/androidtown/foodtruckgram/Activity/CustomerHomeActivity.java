@@ -25,6 +25,8 @@ import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +52,9 @@ public class CustomerHomeActivity extends AppCompatActivity {
     UserInfo userInfo = UserInfo.getUserInfo();
     List<FoodTruckInfo> foodTruckInfos;
     String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    String serverURL_getFavoriteTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFavoriteStoreByUserId";
     FoodTruckDB foodTruckDB;
+    FavoriteTruckDB favoriteTruckDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,8 @@ public class CustomerHomeActivity extends AppCompatActivity {
         params.put("userId", userInfo.getUserId());
         foodTruckDB.execute(params);
 
+        favoriteTruckDB = new FavoriteTruckDB();
+        favoriteTruckDB.execute(params);
 
     }
 
@@ -71,6 +77,10 @@ public class CustomerHomeActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         mapFramgment = new MapFragment();
         truckListFragment = new TruckListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("foodTruckInfos",(Serializable) foodTruckInfos);
+        truckListFragment.setArguments(bundle);
+
         myOrderFragment = new MyOrderFragment();
 
         viewPagerAdapter.addFragment(homeFragment);
@@ -145,10 +155,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
                         case R.id.navigation_list:
                             currentMenu = R.id.navigation_list;
                             viewPager.setCurrentItem(2);
-                            ////foodTruckInfos = info;
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("foodtruckINFO", (Serializable) foodTruckInfos);
-                            truckListFragment.setArguments(bundle);
                             break;
                         case R.id.navigation_order:
                             currentMenu = R.id.navigation_order;
@@ -181,4 +187,41 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
         }
     }
+
+    class FavoriteTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_getFavoriteTruck);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+            Gson gson = new Gson();
+
+            ArrayList<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
+            UserInfo.getUserInfo().setMyFavoriteList(info);
+        }
+    }
+
+
 }

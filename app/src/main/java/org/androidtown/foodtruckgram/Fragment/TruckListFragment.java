@@ -3,6 +3,7 @@ package org.androidtown.foodtruckgram.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,6 @@ public class TruckListFragment extends Fragment {
 
     private View view;
 
-
-
     private ArrayList<FoodTruckInfo> foodTruckInfos = new ArrayList<FoodTruckInfo>();
     private ListView foodTruckListView = null;
 
@@ -42,16 +41,7 @@ public class TruckListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_truck_list, container, false);
 
         Bundle bundle = getArguments();
-//        foodTruckInfos = (ArrayList)bundle.getSerializable("foodtruckINFO");
-
-
-        for (int i=0; i<10; ++i)
-        {
-            FoodTruckInfo foodTruckInfo = new FoodTruckInfo();
-            foodTruckInfo.setOwnerId("푸드트럭 오너" + i);
-            foodTruckInfo.setStoreName("푸드트럭 이름" + i);
-            foodTruckInfos.add(foodTruckInfo);
-        }
+        foodTruckInfos = (ArrayList<FoodTruckInfo>) bundle.getSerializable("foodTruckInfos");
 
         // ListView, Adapter 생성 및 연결 ------------------------
         foodTruckListView = (ListView)view.findViewById(R.id.foodtruck_list_view);
