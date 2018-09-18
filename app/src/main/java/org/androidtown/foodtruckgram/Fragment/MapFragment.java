@@ -214,7 +214,7 @@ public class MapFragment extends Fragment {
         }
     }
 
-    //last 현재 위치
+    //last 현재 위치 ---->>>>>>>>>>>>> ?????????????????
     public void setCurrentLocation() {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

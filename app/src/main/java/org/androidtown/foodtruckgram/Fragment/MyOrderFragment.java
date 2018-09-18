@@ -9,22 +9,23 @@ import android.view.ViewGroup;
 
 import org.androidtown.foodtruckgram.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MyOrderFragment extends Fragment {
 
+    private View view;
 
     public MyOrderFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_order, container, false);
+       view = inflater.inflate(R.layout.fragment_my_order, container, false);
+
+
+        return view;
     }
 
 }

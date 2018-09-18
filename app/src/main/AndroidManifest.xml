@@ -12,7 +12,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/foodtruckgram"
-        android:label="@string/app_name"
+        android:label="푸드트럭 GRAM"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

@@ -1,9 +1,5 @@
 package org.androidtown.foodtruckgram.Activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,12 +17,14 @@ import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.FavoriteFragment;
 import org.androidtown.foodtruckgram.Fragment.MapFragment;
 import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
+import org.androidtown.foodtruckgram.Fragment.HomeFragment;
 import org.androidtown.foodtruckgram.Fragment.TruckListFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +38,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+    HomeFragment homeFragment;
     FavoriteFragment favoriteFragment;
     MapFragment mapFramgment;
     MyOrderFragment myOrderFragment;
@@ -63,77 +62,20 @@ public class CustomerHomeActivity extends AppCompatActivity {
         params.put("userId", userInfo.getUserId());
         foodTruckDB.execute(params);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setOffscreenPageLimit(4);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
-        currentMenu = R.id.navigation_home;
-        setupViewPager(viewPager);
-        prevMenuItem = bottomNavigationView.getMenu().getItem(0);
-
-
-        actionBar = getSupportActionBar();
-        actionBar.hide();
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        currentMenu = R.id.navigation_home;
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.navigation_list:
-                        currentMenu = R.id.navigation_list;
-                        ;
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.navigation_order:
-                        currentMenu = R.id.navigation_order;
-                        viewPager.setCurrentItem(2);
-                        break;
-                    case R.id.navigation_farvorite:
-                        currentMenu = R.id.navigation_farvorite;
-                        viewPager.setCurrentItem(3);
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4);
 
+        homeFragment = new HomeFragment();
         mapFramgment = new MapFragment();
         truckListFragment = new TruckListFragment();
         myOrderFragment = new MyOrderFragment();
         favoriteFragment = new FavoriteFragment();
 
-        viewPagerAdapter.addFragment(mapFramgment); // home
+        viewPagerAdapter.addFragment(homeFragment);
+        viewPagerAdapter.addFragment(mapFramgment);
         viewPagerAdapter.addFragment(truckListFragment);
         viewPagerAdapter.addFragment(myOrderFragment);
         viewPagerAdapter.addFragment(favoriteFragment);
@@ -174,6 +116,74 @@ public class CustomerHomeActivity extends AppCompatActivity {
             List<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
 
             foodTruckInfos = info;
+
+            viewPager = (ViewPager) findViewById(R.id.viewPager);
+            viewPager.setOffscreenPageLimit(5);
+
+            bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+            currentMenu = R.id.navigation_home;
+            setupViewPager(viewPager);
+            prevMenuItem = bottomNavigationView.getMenu().getItem(0);
+
+
+            actionBar = getSupportActionBar();
+//            actionBar.hide();
+
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            currentMenu = R.id.navigation_home;
+                            viewPager.setCurrentItem(0);
+                            break;
+                        case R.id.navigation_map:
+                            currentMenu = R.id.navigation_map;
+                            viewPager.setCurrentItem(1);
+                            break;
+                        case R.id.navigation_list:
+                            currentMenu = R.id.navigation_list;
+                            viewPager.setCurrentItem(2);
+                            ////foodTruckInfos = info;
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("foodtruckINFO", (Serializable) foodTruckInfos);
+                            truckListFragment.setArguments(bundle);
+                            break;
+                        case R.id.navigation_order:
+                            currentMenu = R.id.navigation_order;
+                            viewPager.setCurrentItem(3);
+                            break;
+                        case R.id.navigation_farvorite:
+                            currentMenu = R.id.navigation_farvorite;
+                            viewPager.setCurrentItem(4);
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
+                    bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                    prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
 
         }
     }

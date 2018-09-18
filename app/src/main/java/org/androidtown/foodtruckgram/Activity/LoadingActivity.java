@@ -18,20 +18,6 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
-                (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE
-            }, 1);
-
-
-        }
-
-        setLoginActivity();
-
-    }
-
-    public void setLoginActivity(){
         Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg){
@@ -42,5 +28,7 @@ public class LoadingActivity extends AppCompatActivity {
         };
 
         handler.sendEmptyMessageDelayed(0,1000);
+
     }
+
 }
