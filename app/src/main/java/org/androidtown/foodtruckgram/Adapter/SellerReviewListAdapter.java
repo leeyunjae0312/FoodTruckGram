@@ -88,7 +88,7 @@ public class SellerReviewListAdapter extends RecyclerView.Adapter<SellerReviewLi
         holder.date.setText(reviewInfo.getDate().toString());
         holder.review.setText(reviewInfo.getReview());
 
-        Log.i("RecyclerView","name : "+ reviewInfo.getUserName() + " / price : "+reviewInfo.getReview());
+        Log.i("RecyclerView","name : "+ reviewInfo.getUserName() + " / getReview : "+reviewInfo.getReview() + "////// " + reviewInfo.getDate());
     }
 
     @Override

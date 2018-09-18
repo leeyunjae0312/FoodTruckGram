@@ -31,6 +31,7 @@ public class MenuInfo implements Serializable {
         setMenuIntroduce(menuIntroduce);
     }
 
+
     public String getStoreName() {
         return storeName;
     }
