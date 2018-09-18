@@ -29,6 +29,7 @@ public class FoodTruckInfo implements Serializable {
     String serverURL_closeFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckClose";
 
 
+
     public void opening(double longitude, double latitude){
         //서버에 개점알림
         this.longitude = longitude;

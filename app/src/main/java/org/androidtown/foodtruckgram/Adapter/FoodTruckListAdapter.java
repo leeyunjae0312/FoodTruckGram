@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
+import org.androidtown.foodtruckgram.Activity.DetailActivity;
+import org.androidtown.foodtruckgram.Activity.LoginActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 
 import java.util.ArrayList;
@@ -27,6 +31,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
     private int listCount = 0;
     private int count=0;
 
+    private UserInfo userInfo = UserInfo.getUserInfo();
 
 
     public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos)
@@ -55,7 +60,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
         {
@@ -68,7 +73,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
         }
 
         ImageView foodtruckProfile = (ImageView) convertView.findViewById(R.id.foodtruck_profile);
-        TextView foodtruckName = (TextView) convertView.findViewById(R.id.foodtruck_name);
+        final TextView foodtruckName = (TextView) convertView.findViewById(R.id.foodtruck_name);
         TextView foodtruckID = (TextView) convertView.findViewById(R.id.foodtruck_id);
         ImageView foodtruckImg = (ImageView) convertView.findViewById(R.id.foodtruck_img);
         TextView foodtruckComment = (TextView) convertView.findViewById(R.id.foodtruck_comment);
@@ -79,20 +84,38 @@ public class FoodTruckListAdapter extends BaseAdapter {
         foodtruckImg.setImageResource(R.drawable.sample); //음식사진
         foodtruckComment.setText("코멘트 추가해야 함");
 
+
+
+        /////////////////////다시해야함!
         final ImageButton foodtruckFavoriteBtn = (ImageButton) convertView.findViewById(R.id.favorite_btn);
 
         final View finalConvertView = convertView;
         foodtruckFavoriteBtn.setOnClickListener(new ImageButton.OnClickListener() {
             @Override public void onClick(View view) {
-                count++;
-                if(count%2 == 0) {
-                    foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                    Toast.makeText(finalConvertView.getContext(), "즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    foodtruckFavoriteBtn.setImageResource(R.drawable.list_red_favorite_btn);
-                    Toast.makeText(finalConvertView.getContext() , "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+
+                for (int i = 0; i < listCount; i++) {
+                    if (userInfo.getMyFavoriteList() != null && userInfo.getMyFavoriteList().get(i).getStoreName().equals(foodtruckName.getText())) {
+                        foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                        Toast.makeText(finalConvertView.getContext(), "즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        userInfo.getMyFavoriteList().add(foodTruckInfos.get(position));
+                        foodtruckFavoriteBtn.setImageResource(R.drawable.list_red_favorite_btn);
+                        Toast.makeText(finalConvertView.getContext(), "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }
+            }
+            }
+        });
+
+        ImageButton detailBtn = (ImageButton) convertView.findViewById(R.id.detail_page_btn);
+
+
+        detailBtn.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(finalConvertView.getContext(), DetailActivity.class);
+                finalConvertView.getContext().startActivity(intent);
             }
         });
 

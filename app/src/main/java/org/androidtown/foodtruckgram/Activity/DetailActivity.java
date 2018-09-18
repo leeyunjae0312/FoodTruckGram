@@ -1,90 +1,91 @@
 package org.androidtown.foodtruckgram.Activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.*;
+import org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment;
+import org.androidtown.foodtruckgram.Fragment.OrderFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomerHomeActivity extends AppCompatActivity {
 
-    ActionBar actionBar;
+public class DetailActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
-    BottomNavigationView bottomNavigationView;
+    private CustomerReviewFragment reviewFragment;
+    private OrderFragment orderFragment;
 
-    HomeFragment homeFragment;
-    //FavoriteFragment favoriteFragment;
-    MapFragment mapFramgment;
-    MyOrderFragment myOrderFragment;
-    TruckListFragment truckListFragment;
+    private int currentMenu;
+    private MenuItem prevMenuItem;
 
-    int currentMenu;
-    MenuItem prevMenuItem;
+    private UserInfo userInfo = UserInfo.getUserInfo();
+    private List<FoodTruckInfo> foodTruckInfos;
+    private String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    private FoodTruckDB foodTruckDB;
 
-    UserInfo userInfo = UserInfo.getUserInfo();
-    List<FoodTruckInfo> foodTruckInfos;
-    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
-    FoodTruckDB foodTruckDB;
+    private TabLayout tabLayout;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_home);
+        setContentView(R.layout.activity_detail);
+/*
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.hideOverflowMenu();
+*/
+
+        actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         foodTruckDB = new FoodTruckDB();
         Map<String, String> params = new HashMap<String, String>();
         params.put("userId", userInfo.getUserId());
         foodTruckDB.execute(params);
 
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2);
 
-        homeFragment = new HomeFragment();
-        mapFramgment = new MapFragment();
-        truckListFragment = new TruckListFragment();
+        reviewFragment = new CustomerReviewFragment();
+        orderFragment = new OrderFragment();
 
-        Bundle bundle = new Bundle();
+       /* Bundle bundle = new Bundle();
         bundle.putSerializable("foodTruckInfos",(Serializable) foodTruckInfos);
         truckListFragment.setArguments(bundle);
-
-        myOrderFragment = new MyOrderFragment();
-
-        viewPagerAdapter.addFragment(homeFragment);
-        viewPagerAdapter.addFragment(mapFramgment);
-        viewPagerAdapter.addFragment(truckListFragment);
-        viewPagerAdapter.addFragment(myOrderFragment);
+*/
+        viewPagerAdapter.addFragment(orderFragment);
+        viewPagerAdapter.addFragment(reviewFragment);
 
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
     }
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
@@ -125,21 +126,46 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
                 Log.i("haneul_list_test", "info" + foodTruckInfos.get(i).getStoreName() + "////" + foodTruckInfos.size());
             }
-            viewPager = (ViewPager) findViewById(R.id.viewPager);
-            viewPager.setOffscreenPageLimit(4);
 
-            bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+            tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+            tabLayout.addTab(tabLayout.newTab().setText("주문하기"));
+            tabLayout.addTab(tabLayout.newTab().setText("리뷰작성"));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
+            tabLayout.setTabTextColors(R.color.white,getResources().getColor(R.color.black));
+
+
+            viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
+            viewPager.setOffscreenPageLimit(2);
+
 
             currentMenu = R.id.navigation_home;
             setupViewPager(viewPager);
-            prevMenuItem = bottomNavigationView.getMenu().getItem(0);
+
+            // Set TabSelectedListener
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
 
 
-            actionBar = getSupportActionBar();
-//            actionBar.hide();
 
 
-            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        /*    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -164,26 +190,9 @@ public class CustomerHomeActivity extends AppCompatActivity {
                     return true;
                 }
             });
+*/
 
 
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    currentMenu = bottomNavigationView.getMenu().getItem(position).getItemId();
-                    bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                    prevMenuItem = bottomNavigationView.getMenu().getItem(position);
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
 
         }
     }
