@@ -20,9 +20,4 @@
         android:icon="@drawable/order"
         android:title="My Order" />
 
-    <item
-        android:id="@+id/navigation_farvorite"
-        android:icon="@drawable/customer_favorite"
-        android:title="My Favorite" />
-
 </menu>

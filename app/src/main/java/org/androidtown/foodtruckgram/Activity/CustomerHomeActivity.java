@@ -1,5 +1,9 @@
 package org.androidtown.foodtruckgram.Activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.FavoriteFragment;
-import org.androidtown.foodtruckgram.Fragment.MapFragment;
-import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
-import org.androidtown.foodtruckgram.Fragment.HomeFragment;
-import org.androidtown.foodtruckgram.Fragment.TruckListFragment;
+import org.androidtown.foodtruckgram.Fragment.*;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
@@ -39,7 +39,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment;
-    FavoriteFragment favoriteFragment;
+    //FavoriteFragment favoriteFragment;
     MapFragment mapFramgment;
     MyOrderFragment myOrderFragment;
     TruckListFragment truckListFragment;
@@ -72,13 +72,11 @@ public class CustomerHomeActivity extends AppCompatActivity {
         mapFramgment = new MapFragment();
         truckListFragment = new TruckListFragment();
         myOrderFragment = new MyOrderFragment();
-        favoriteFragment = new FavoriteFragment();
 
         viewPagerAdapter.addFragment(homeFragment);
         viewPagerAdapter.addFragment(mapFramgment);
         viewPagerAdapter.addFragment(truckListFragment);
         viewPagerAdapter.addFragment(myOrderFragment);
-        viewPagerAdapter.addFragment(favoriteFragment);
 
         viewPager.setAdapter(viewPagerAdapter);
     }
@@ -156,10 +154,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
                             currentMenu = R.id.navigation_order;
                             viewPager.setCurrentItem(3);
                             break;
-                        case R.id.navigation_farvorite:
-                            currentMenu = R.id.navigation_farvorite;
-                            viewPager.setCurrentItem(4);
-                            break;
                     }
                     return true;
                 }
@@ -188,4 +182,3 @@ public class CustomerHomeActivity extends AppCompatActivity {
         }
     }
 }
-

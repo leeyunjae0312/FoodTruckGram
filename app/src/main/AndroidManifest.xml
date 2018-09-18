@@ -37,7 +37,10 @@
             android:name=".Activity.SellerHomeActivity"
             android:label="@string/title_activity_seller_home" />
         <activity android:name=".Activity.RegisterActivity" />
-        <activity android:name=".Activity.SellerMenuEditActivity"></activity>
+        <activity android:name=".Activity.SellerMenuEditActivity" />
+        <activity android:name=".Activity.InfoDialogActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
     </application>
 
 </manifest>
