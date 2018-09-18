@@ -20,11 +20,13 @@ import org.androidtown.foodtruckgram.Fragment.SellerFragment.OpenCloseFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.OrderListFragment;
 import org.androidtown.foodtruckgram.Fragment.SellerFragment.ReviewFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SellerHomeActivity extends AppCompatActivity {
@@ -138,7 +140,16 @@ public class SellerHomeActivity extends AppCompatActivity {
             FoodTruckInfo info = gson.fromJson(aVoid, FoodTruckInfo.class);
             foodTruckInfo = info;
 
-            Log.i("yunjae", "storeName = " + foodTruckInfo.getStoreName() + " ownerName = " + foodTruckInfo.getOwnerName() + " ownerId = " + foodTruckInfo.getOwnerId() + " menuList0 = " + foodTruckInfo.getMenuList().get(0).getMenuName());
+            List<MenuInfo> menuInfos = info.getMenuList();
+
+            for(int i=0; i<menuInfos.size(); i++) {
+                String base64 = menuInfos.get(i).getMenuImage();
+                /*byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                menuInfos.get(i).setMenuBitmap(bitmap);*/
+            }
+
+           // Log.i("yunjae", "storeName = " + foodTruckInfo.getStoreName() + " ownerName = " + foodTruckInfo.getOwnerName() + " ownerId = " + foodTruckInfo.getOwnerId() + " menuList0 = " + foodTruckInfo.getMenuList().get(0).getMenuName());
 
 
             viewPager = (ViewPager) findViewById(R.id.viewPager_seller);

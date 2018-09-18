@@ -2,8 +2,11 @@ package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import org.androidtown.foodtruckgram.Activity.SellerMenuEditActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
@@ -35,10 +36,11 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public ImageView menuImage;
-        public TextView name,price,introduce;
+        public TextView name,price,introduce,menuImageURI;
         public ImageButton remove,edit;
         private SellerMenuListAdapter adapter;
         private Context context;
+
         String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/updateMenu";
 
         public ViewHolder(final Context context, View itemView, final SellerMenuListAdapter adapter, final FoodTruckInfo foodTruckInfo) {
@@ -53,6 +55,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
             name = (TextView)itemView.findViewById(R.id.menuName_textView);
             price = (TextView)itemView.findViewById(R.id.menuPrice_textView);
             introduce = (TextView)itemView.findViewById(R.id.menuIntroduce_textView);
+            menuImageURI = (TextView)itemView.findViewById(R.id.menuImageURI);
 
             remove = (ImageButton)itemView.findViewById(R.id.menuItemRemoveBtn);
             remove.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +77,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                     Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, SellerMenuEditActivity.class);
                     intent.putExtra("foodTruckInfo",foodTruckInfo);
-                    intent.putExtra("menuImage","menuImageURL");
+                    intent.putExtra("menuImage", menuImageURI.getText());
                     intent.putExtra("menuName",name.getText());
                     intent.putExtra("menuPrice",price.getText());
                     intent.putExtra("menuIntroduce",introduce.getText());
@@ -138,10 +141,19 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         MenuInfo menuInfo = menuList.get(position);
 
         // Set item views based on your views and data model
-        viewHolder.menuImage.setImageResource(R.drawable.burger);  //menu image edit
+        //viewHolder.menuImage.setImageResource(R.drawable.burger);  //menu image edit
+        String base64 = menuInfo.getMenuImage();
+        Log.i("Edit", "base64 = " + base64);
+        if(base64 != null && base64 != "") {
+            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            viewHolder.menuImage.setImageBitmap(bitmap);
+        }
+
         viewHolder.name.setText(menuInfo.getMenuName());
         viewHolder.price.setText(menuInfo.getMenuPrice());
         viewHolder.introduce.setText(menuInfo.getMenuIntroduce());
+        viewHolder.menuImageURI.setText(menuInfo.getMenuImage());
 
         Log.i("RecyclerView","name : "+ menuInfo.getMenuName() + " / price : "+menuInfo.getMenuPrice());
 
