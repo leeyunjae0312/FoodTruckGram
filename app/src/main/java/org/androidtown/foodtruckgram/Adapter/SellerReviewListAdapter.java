@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.androidtown.foodtruckgram.Info.ReviewInfo;
 import org.androidtown.foodtruckgram.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -52,11 +53,13 @@ public class SellerReviewListAdapter extends RecyclerView.Adapter<SellerReviewLi
     private ArrayList<ReviewInfo> reviewList;
     // Store the context for easy access
     private Context mContext;
+    private TextView review_count;
 
     // Pass in the contact array into the constructor
-    public SellerReviewListAdapter(Context context, ArrayList<ReviewInfo> reviewList) {
+    public SellerReviewListAdapter(Context context, ArrayList<ReviewInfo> reviewList, TextView review_count) {
         this.reviewList = reviewList;
         mContext = context;
+        this.review_count = review_count;
     }
 
     // Easy access to the context object in the recyclerview
@@ -85,7 +88,9 @@ public class SellerReviewListAdapter extends RecyclerView.Adapter<SellerReviewLi
         // Set item views based on your views and data model
         holder.image.setImageResource(R.drawable.girl);  //menu image edit
         holder.userName.setText(reviewInfo.getUserName());
-        holder.date.setText(reviewInfo.getDate().toString());
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+        String new_date = date_format.format(reviewInfo.getDate());
+        holder.date.setText(new_date);
         holder.review.setText(reviewInfo.getReview());
 
         Log.i("RecyclerView","name : "+ reviewInfo.getUserName() + " / getReview : "+reviewInfo.getReview() + "////// " + reviewInfo.getDate());

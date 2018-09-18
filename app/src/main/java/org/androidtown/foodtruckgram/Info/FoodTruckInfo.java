@@ -1,8 +1,6 @@
 package org.androidtown.foodtruckgram.Info;
 
 import android.os.AsyncTask;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -189,5 +187,7 @@ public class FoodTruckInfo implements Serializable {
             Gson gson = new Gson();
         }
     }
+
+
 
 }

@@ -100,7 +100,7 @@ public class ReviewFragment extends Fragment {
 
 
             recyclerView.setHasFixedSize(true);
-            adapter = new SellerReviewListAdapter(getActivity(), infos);
+            adapter = new SellerReviewListAdapter(getActivity(), infos, review_count);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(adapter);
 
