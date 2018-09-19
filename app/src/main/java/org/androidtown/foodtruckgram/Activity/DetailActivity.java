@@ -1,5 +1,6 @@
 package org.androidtown.foodtruckgram.Activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -33,8 +34,8 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
-    private CustomerReviewFragment reviewFragment;
-    private OrderFragment orderFragment;
+    private CustomerReviewFragment reviewFragment = new CustomerReviewFragment();
+    private OrderFragment orderFragment = new OrderFragment();
 
     private int currentMenu;
     private MenuItem prevMenuItem;
@@ -46,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ActionBar actionBar;
+    FoodTruckInfo foodTruckInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +69,19 @@ public class DetailActivity extends AppCompatActivity {
         params.put("userId", userInfo.getUserId());
         foodTruckDB.execute(params);
 
+        Intent intent = getIntent();
+        foodTruckInfo = (FoodTruckInfo) intent.getSerializableExtra("foodtruckInfo");
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("foodTruckInfo",(Serializable) foodTruckInfos);
+        reviewFragment.setArguments(bundle);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2);
 
-        reviewFragment = new CustomerReviewFragment();
-        orderFragment = new OrderFragment();
 
        /* Bundle bundle = new Bundle();
         bundle.putSerializable("foodTruckInfos",(Serializable) foodTruckInfos);

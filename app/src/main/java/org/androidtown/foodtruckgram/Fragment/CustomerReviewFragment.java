@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import org.androidtown.foodtruckgram.Adapter.CustomerReviewAdapter;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 
 import java.util.ArrayList;
@@ -22,8 +24,7 @@ public class CustomerReviewFragment extends Fragment {
 
     private View view;
     private ListView reviewListView = null;
-    ArrayList<FoodTruckInfo> foodTruckInfos;
-
+    private FoodTruckInfo foodTruckInfo;
 
     public CustomerReviewFragment() {
         // Required empty public constructor
@@ -36,35 +37,28 @@ public class CustomerReviewFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_customer_review, container, false);
 
-        foodTruckInfos = new ArrayList<>();
 
-        for (int i = 0; i < 5; ++i) {
+
+        Bundle bundle = getArguments();
+
+        foodTruckInfo = (FoodTruckInfo) bundle.getSerializable("foodturckInfo");
+
+        UserInfo userInfo = UserInfo.getUserInfo();
+
+        ArrayList<FoodTruckInfo> foodTruckInfos = new ArrayList<>();
+
+        for (int i=0; i<10; ++i)
+        {
             FoodTruckInfo foodTruckInfo = new FoodTruckInfo();
-            foodTruckInfo.setOwnerId("푸드트럭 오너" + i);
-            foodTruckInfo.setStoreName("푸드트럭 이름" + i);
-            foodTruckInfos.add(foodTruckInfo);
-
-
+            foodTruckInfo.setStoreName("이름"+i);
+            foodTruckInfo.setOwnerId("오너"+i);
+            foodTruckInfos.add(i,foodTruckInfo);
         }
 
-        ListView listview ;
-        CustomerReviewAdapter adapter;
-
-        // Adapter 생성
-        adapter = new CustomerReviewAdapter() ;
-
-        // 리스트뷰 참조 및 Adapter달기
-        listview = (ListView) view.findViewById(R.id.review_listview);
-        listview.setAdapter(adapter);
-
-
-
-
-
-       /* // ListView, Adapter 생성 및 연결 ------------------------
-        reviewListView = (ListView) view.findViewById(R.id.review_listview);
-        CustomerReviewAdapter customerReviewAdapter = new CustomerReviewAdapter(foodTruckInfos);
-        reviewListView.setAdapter(customerReviewAdapter);*/
+        // ListView, Adapter 생성 및 연결 ------------------------
+        reviewListView = (ListView)view.findViewById(R.id.review_listview);
+        CustomerReviewAdapter adapter = new CustomerReviewAdapter(foodTruckInfos);
+        reviewListView.setAdapter(adapter);
 
         return view;
     }
