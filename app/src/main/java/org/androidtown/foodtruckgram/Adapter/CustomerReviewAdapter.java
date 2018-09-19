@@ -1,7 +1,6 @@
 package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,31 +31,28 @@ public class CustomerReviewAdapter extends BaseAdapter{
 
     private ArrayList<FoodTruckInfo> foodTruckInfos;
     public CustomerReviewAdapter(ArrayList<FoodTruckInfo> foodTruckInfos) {
-        Log.i("haneullll","ddddd?????");
         this.foodTruckInfos = foodTruckInfos;
-        Log.i("haneullll","foodtruck" + foodTruckInfos.get(1).getStoreName());
 
     }
     public CustomerReviewAdapter(FoodTruckInfo foodTruckInfo, UserInfo userInfo) {
         this.foodTruckInfo = foodTruckInfo;
         this.userInfo = userInfo;
 
-        Log.i("haneullll","ddddd///////////");
 
     }
     @Override
     public int getCount() {
-        return 0;
+        return foodTruckInfos.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return foodTruckInfos.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -72,7 +68,6 @@ public class CustomerReviewAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.customer_review_item, parent, false);
         }
 
-        Log.i("haneullll","ddddd");
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);

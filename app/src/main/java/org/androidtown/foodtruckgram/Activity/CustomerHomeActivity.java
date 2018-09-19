@@ -1,9 +1,5 @@
 package org.androidtown.foodtruckgram.Activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +14,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
-import org.androidtown.foodtruckgram.Fragment.*;
+import org.androidtown.foodtruckgram.Fragment.HomeFragment;
+import org.androidtown.foodtruckgram.Fragment.MapFragment;
+import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
+import org.androidtown.foodtruckgram.Fragment.TruckListFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
@@ -82,6 +81,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
         truckListFragment.setArguments(bundle);
 
         myOrderFragment = new MyOrderFragment();
+        myOrderFragment.setArguments(bundle);
 
         viewPagerAdapter.addFragment(homeFragment);
         viewPagerAdapter.addFragment(mapFramgment);
