@@ -42,13 +42,14 @@ public class DetailActivity extends AppCompatActivity {
     private MenuItem prevMenuItem;
 
     private UserInfo userInfo = UserInfo.getUserInfo();
-    private List<FoodTruckInfo> foodTruckInfos;
-    private String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getReview";
+    private List<ReviewInfo> reviewInfos;
+    private String serverURL_geReviewInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getReview";
     private FoodTruckDB foodTruckDB;
 
     private TabLayout tabLayout;
     private ActionBar actionBar;
     FoodTruckInfo foodTruckInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +68,9 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         foodTruckInfo = (FoodTruckInfo) intent.getSerializableExtra("foodtruckInfo");
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("foodTruckInfo",(Serializable) foodTruckInfos);
-        reviewFragment.setArguments(bundle);
-
-
         foodTruckDB = new FoodTruckDB();
         Map<String, String> params = new HashMap<String, String>();
+        Log.i("storeName2",foodTruckInfo.getStoreName());
         params.put("storeName", foodTruckInfo.getStoreName());
         foodTruckDB.execute(params);
 
@@ -85,11 +82,11 @@ public class DetailActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2);
 
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("foodturckInfo", foodTruckInfo);
+        bundle.putSerializable("reviewInfos", (Serializable) reviewInfos);
+        reviewFragment.setArguments(bundle);
 
-       /* Bundle bundle = new Bundle();
-        bundle.putSerializable("foodTruckInfos",(Serializable) foodTruckInfos);
-        truckListFragment.setArguments(bundle);
-*/
         viewPagerAdapter.addFragment(orderFragment);
         viewPagerAdapter.addFragment(reviewFragment);
 
@@ -104,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Map<String, String>...maps) {
 
-            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_getFoodTruckInfoList);
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_geReviewInfoList);
             http.addAllParameters(maps[0]);
 
             HttpClient post = http.create();
@@ -129,14 +126,11 @@ public class DetailActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
 
-            List<ReviewInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
+            List<ReviewInfo> infos = gson.fromJson(aVoid, new TypeToken<List<ReviewInfo>>(){}.getType());
 
-            //foodTruckInfos = info; //푸드트럭 인포 받아옴
+            reviewInfos = infos; //푸드트럭 인포 받아옴
 
-            for(int i=0; i<foodTruckInfos.size();i++) {
-
-                Log.i("haneul_list_test", "info" + foodTruckInfos.get(i).getStoreName() + "////" + foodTruckInfos.size());
-            }
+        //    Log.i("haneul_review_activity",reviewInfos.get(1).getReview());
 
             tabLayout = (TabLayout)findViewById(R.id.tab_layout);
             tabLayout.addTab(tabLayout.newTab().setText("주문하기"));
@@ -171,40 +165,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 }
             });
-
-
-
-
-
-        /*    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.navigation_home:
-                            currentMenu = R.id.navigation_home;
-                            viewPager.setCurrentItem(0);
-                            break;
-                        case R.id.navigation_map:
-                            currentMenu = R.id.navigation_map;
-                            viewPager.setCurrentItem(1);
-                            break;
-                        case R.id.navigation_list:
-                            currentMenu = R.id.navigation_list;
-                            viewPager.setCurrentItem(2);
-                            break;
-                        case R.id.navigation_order:
-                            currentMenu = R.id.navigation_order;
-                            viewPager.setCurrentItem(3);
-                            break;
-                    }
-                    return true;
-                }
-            });
-*/
-
-
-
         }
     }
 }

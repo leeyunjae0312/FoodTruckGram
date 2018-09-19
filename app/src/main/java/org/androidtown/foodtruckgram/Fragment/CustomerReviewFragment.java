@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 
 import org.androidtown.foodtruckgram.Adapter.CustomerReviewAdapter;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.ReviewInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 
@@ -27,6 +29,7 @@ public class CustomerReviewFragment extends Fragment {
     private ListView reviewListView = null;
     private FoodTruckInfo foodTruckInfo;
     private FloatingActionButton addReviewBtn;
+    private ArrayList<ReviewInfo> reviewInfos;
 
     public CustomerReviewFragment() {
         // Required empty public constructor
@@ -40,6 +43,7 @@ public class CustomerReviewFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_customer_review, container, false);
 
 
+        addReviewBtn = (FloatingActionButton) view.findViewById(R.id.fab_review_add);
         addReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
               ///////////////////////////////////////
@@ -49,9 +53,12 @@ public class CustomerReviewFragment extends Fragment {
         Bundle bundle = getArguments();
 
         foodTruckInfo = (FoodTruckInfo) bundle.getSerializable("foodturckInfo");
+        reviewInfos = (ArrayList<ReviewInfo>) bundle.getSerializable("reviewInfos");
+
+//        Log.i("haneul_review_fragment",reviewInfos.get(1).getReview());
 
         UserInfo userInfo = UserInfo.getUserInfo();
-
+/*
         ArrayList<FoodTruckInfo> foodTruckInfos = new ArrayList<>();
 
         for (int i=0; i<10; ++i)
@@ -60,11 +67,11 @@ public class CustomerReviewFragment extends Fragment {
             foodTruckInfo.setStoreName("이름"+i);
             foodTruckInfo.setOwnerId("오너"+i);
             foodTruckInfos.add(i,foodTruckInfo);
-        }
+        }*/
 
         // ListView, Adapter 생성 및 연결 ------------------------
         reviewListView = (ListView)view.findViewById(R.id.review_listview);
-        CustomerReviewAdapter adapter = new CustomerReviewAdapter(foodTruckInfos);
+        CustomerReviewAdapter adapter = new CustomerReviewAdapter(foodTruckInfo,userInfo,reviewInfos);
         reviewListView.setAdapter(adapter);
 
 

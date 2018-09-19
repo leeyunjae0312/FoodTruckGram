@@ -29,25 +29,22 @@ public class CustomerReviewAdapter extends BaseAdapter{
     private FoodTruckInfo foodTruckInfo = null;
     private ArrayList<ReviewInfo> reviewInfos;
 
-    private ArrayList<FoodTruckInfo> foodTruckInfos;
-    public CustomerReviewAdapter(ArrayList<FoodTruckInfo> foodTruckInfos) {
-        this.foodTruckInfos = foodTruckInfos;
 
-    }
-    public CustomerReviewAdapter(FoodTruckInfo foodTruckInfo, UserInfo userInfo) {
+    public CustomerReviewAdapter(FoodTruckInfo foodTruckInfo, UserInfo userInfo, ArrayList<ReviewInfo> reviewInfos) {
         this.foodTruckInfo = foodTruckInfo;
         this.userInfo = userInfo;
+        this.reviewInfos = reviewInfos;
 
 
     }
     @Override
     public int getCount() {
-        return foodTruckInfos.size();
+        return reviewInfos.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return foodTruckInfos.get(i);
+        return reviewInfos.get(i);
     }
 
     @Override
@@ -80,9 +77,11 @@ public class CustomerReviewAdapter extends BaseAdapter{
         TextView reviewDate = (TextView) convertView.findViewById(R.id.review_date);
 
        // userImage.setImageResource(R.drawable.foodtruckgram); //프로필 사진
-      //  userID.setText(foodTruckInfos.get(position).getOwnerId());
-        //reviewContent.setText(foodTruckInfos.get(position).getStoreName());
-       // reviewDate.setText(getDate);
+        userID.setText(reviewInfos.get(position).getUserName());
+        reviewContent.setText(reviewInfos.get(position).getReview());
+
+        String reviewdate = sdf.format(reviewInfos.get(position).getDate());
+        reviewDate.setText(reviewdate);
 
 
         return convertView;
