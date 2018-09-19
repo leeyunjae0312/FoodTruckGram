@@ -154,9 +154,9 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
             viewHolder.menuImage.setImageResource(R.drawable.burger);
         }
 
-        viewHolder.name.setText(menuInfo.getMenuName());
-        viewHolder.price.setText(menuInfo.getMenuPrice());
-        viewHolder.introduce.setText(menuInfo.getMenuIntroduce());
+        viewHolder.name.setText(menuInfo.getMenuName()+"\n");
+        viewHolder.price.setText(menuInfo.getMenuPrice()+"\n");
+        viewHolder.introduce.setText(menuInfo.getMenuIntroduce()+"\n");
         Log.i("Edit", "introduce = " + menuInfo.getMenuIntroduce());
         viewHolder.menuImageURI.setText(menuInfo.getMenuImage());
 

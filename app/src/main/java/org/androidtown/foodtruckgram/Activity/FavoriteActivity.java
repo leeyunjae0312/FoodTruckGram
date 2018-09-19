@@ -72,9 +72,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
             ArrayList<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
 
-            Log.i("Favorite","Server로 부터 예지트럭 Open = "+info.get(0).isOpen());
-            Log.i("Favorite","Server로 부터 윤재트럭 Open = "+info.get(1).isOpen());
-
             UserInfo.getUserInfo().setMyFavoriteList(info);
 
             recyclerView = (RecyclerView)findViewById(R.id.favoriteTruckRecyclerView);

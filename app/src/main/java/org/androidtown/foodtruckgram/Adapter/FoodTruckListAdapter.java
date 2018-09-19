@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 
 import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
 import org.androidtown.foodtruckgram.Activity.DetailActivity;
-import org.androidtown.foodtruckgram.Activity.LoginActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
@@ -36,11 +35,11 @@ public class FoodTruckListAdapter extends BaseAdapter {
     private ArrayList<FoodTruckInfo> foodTruckInfos = null;
     private int listCount = 0;
     private int count = 0;
+    View convertView;
 
 
     UserInfo userInfo = UserInfo.getUserInfo();
     ImageView foodtruckFavoriteBtn;
-    View convertView;
 
     public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos) {
         this.foodTruckInfos = foodTruckInfos;
@@ -79,6 +78,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
         TextView foodtruckID = (TextView) convertView.findViewById(R.id.foodtruck_id);
         ImageView foodtruckImg = (ImageView) convertView.findViewById(R.id.foodtruck_img);
         TextView foodtruckComment = (TextView) convertView.findViewById(R.id.foodtruck_comment);
+        ImageButton detailBtn = (ImageButton)convertView.findViewById(R.id.detail_page_btn);
 
         foodtruckProfile.setImageResource(R.drawable.foodtruckgram); //프로필 사진
         foodtruckName.setText(foodTruckInfos.get(position).getStoreName());
@@ -108,14 +108,12 @@ public class FoodTruckListAdapter extends BaseAdapter {
             }
         });
 
-        ImageButton detailBtn = (ImageButton) convertView.findViewById(R.id.detail_page_btn);
-
         final View finalConvertView = convertView;
+
         detailBtn.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(finalConvertView.getContext(), DetailActivity.class);
-
                 intent.putExtra("foodtruckInfo", foodTruckInfos.get(position));
                 finalConvertView.getContext().startActivity(intent);
             }

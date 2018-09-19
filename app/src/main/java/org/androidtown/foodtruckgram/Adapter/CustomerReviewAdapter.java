@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,12 @@ public class CustomerReviewAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return reviewInfos.size();
+        if(reviewInfos!=null)
+            return reviewInfos.size();
+        else{
+            Log.i("Review","reviewInfos null");
+            return 0;
+        }
     }
 
     @Override

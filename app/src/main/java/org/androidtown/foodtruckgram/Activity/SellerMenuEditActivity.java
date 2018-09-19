@@ -232,7 +232,6 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             resultIntent.putExtra("foodTruckInfo", foodTruckInfo);
             setResult(RESULT_OK, resultIntent);
 
-
             finish();
         }
     }

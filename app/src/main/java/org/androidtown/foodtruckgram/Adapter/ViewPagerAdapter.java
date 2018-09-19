@@ -18,7 +18,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private int tabCount;
     private MapFragment mapFragment = new MapFragment();
     private TruckListFragment truckListFragment = new TruckListFragment();
-    private FavoriteFragment favoriteFragment = new FavoriteFragment();
     private MyOrderFragment myOrderFragment = new MyOrderFragment();
 
     public List<Fragment> mFragmentList = new ArrayList<>();
