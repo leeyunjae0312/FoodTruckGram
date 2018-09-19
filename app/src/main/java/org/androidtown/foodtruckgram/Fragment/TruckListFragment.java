@@ -39,11 +39,12 @@ public class TruckListFragment extends Fragment {
         Bundle bundle = getArguments();
         foodTruckInfos = (ArrayList<FoodTruckInfo>) bundle.getSerializable("foodTruckInfos");
 
-        // ListView, Adapter 생성 및 연결 ------------------------
-        foodTruckListView = (ListView)view.findViewById(R.id.foodtruck_list_view);
-        FoodTruckListAdapter foodTruckListAdapter = new FoodTruckListAdapter(foodTruckInfos);
-        foodTruckListView.setAdapter(foodTruckListAdapter);
-
+        if(foodTruckInfos != null) {
+            // ListView, Adapter 생성 및 연결 ------------------------
+            foodTruckListView = (ListView) view.findViewById(R.id.foodtruck_list_view);
+            FoodTruckListAdapter foodTruckListAdapter = new FoodTruckListAdapter(foodTruckInfos);
+            foodTruckListView.setAdapter(foodTruckListAdapter);
+        }
         return view;
     }
 

@@ -40,7 +40,7 @@ public class AddReviewDialog extends Dialog {
     Button saveBtn, cancelBtn;
 
     FoodTruckInfo foodTruckInfo;
-    ReviewInfo reviewInfo = new ReviewInfo();
+    ReviewInfo reviewInfo;
 
     private String serverURL_InsertReview = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/insertReview";
     private AddReviewDialog.FoodTruckReviewDB foodTruckReviewDB;
@@ -77,6 +77,7 @@ public class AddReviewDialog extends Dialog {
 
                 UserInfo userInfo = UserInfo.getUserInfo();
 
+                reviewInfo = new ReviewInfo();
                 reviewInfo.setDate(date);
                 reviewInfo.setUserName(userInfo.getUserId());
                 reviewInfo.setReview(addReviewContent.getText().toString());

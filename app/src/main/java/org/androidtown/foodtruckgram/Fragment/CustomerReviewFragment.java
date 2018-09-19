@@ -64,7 +64,6 @@ public class CustomerReviewFragment extends Fragment {
         foodTruckInfo = (FoodTruckInfo) bundle.getSerializable("foodtruckInfo");
         reviewInfos = (ArrayList<ReviewInfo>) bundle.getSerializable("reviewInfos");
 
-
         //리뷰작성 다이얼로그
         DisplayMetrics dm = view.getContext().getApplicationContext().getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
         int width = dm.widthPixels; //디바이스 화면 너비
@@ -78,12 +77,14 @@ public class CustomerReviewFragment extends Fragment {
         wm.height = height / 2;  //화면 높이의 절반
 
 
+        if(reviewInfos!=null) {
 
-        // ListView, Adapter 생성 및 연결 ------------------------
-        reviewListView = (ListView)view.findViewById(R.id.review_listview);
-        reviewAdapter = new CustomerReviewAdapter(foodTruckInfo,userInfo,reviewInfos);
-        reviewListView.setAdapter(reviewAdapter);
+            // ListView, Adapter 생성 및 연결 ------------------------
+            reviewListView = (ListView) view.findViewById(R.id.review_listview);
+            reviewAdapter = new CustomerReviewAdapter(foodTruckInfo, userInfo, reviewInfos);
+            reviewListView.setAdapter(reviewAdapter);
 
+        }
         return view;
     }
 

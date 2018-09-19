@@ -70,15 +70,14 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         foodTruckInfo = (FoodTruckInfo) intent.getSerializableExtra("foodtruckInfo");
 
-
-        foodTruckDB = new FoodTruckDB();
         Map<String, String> params = new HashMap<String, String>();
         params.put("storeName", foodTruckInfo.getStoreName());
-        foodTruckDB.execute(params);
 
         foodTruckReviewDB = new FoodTruckReviewDB();
         foodTruckReviewDB.execute(params);
 
+        foodTruckDB = new FoodTruckDB();
+        foodTruckDB.execute(params);
 
     }
 
@@ -88,6 +87,8 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("foodtruckInfo", foodTruckInfo);
         bundle.putSerializable("reviewInfos", (Serializable) reviewInfos);
+
+
         reviewFragment.setArguments(bundle);
         orderFragment.setArguments(bundle);
 
