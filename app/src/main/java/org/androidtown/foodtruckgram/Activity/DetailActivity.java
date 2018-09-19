@@ -19,6 +19,7 @@ import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment;
 import org.androidtown.foodtruckgram.Fragment.OrderFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.ReviewInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
@@ -42,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private UserInfo userInfo = UserInfo.getUserInfo();
     private List<FoodTruckInfo> foodTruckInfos;
-    private String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    private String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getReview";
     private FoodTruckDB foodTruckDB;
 
     private TabLayout tabLayout;
@@ -63,18 +64,20 @@ public class DetailActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.hide();
 
-
-        foodTruckDB = new FoodTruckDB();
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("userId", userInfo.getUserId());
-        foodTruckDB.execute(params);
-
         Intent intent = getIntent();
         foodTruckInfo = (FoodTruckInfo) intent.getSerializableExtra("foodtruckInfo");
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("foodTruckInfo",(Serializable) foodTruckInfos);
         reviewFragment.setArguments(bundle);
+
+
+        foodTruckDB = new FoodTruckDB();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("storeName", foodTruckInfo.getStoreName());
+        foodTruckDB.execute(params);
+
+
 
 
     }
@@ -126,9 +129,9 @@ public class DetailActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
 
-            List<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
+            List<ReviewInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
 
-            foodTruckInfos = info; //푸드트럭 인포 받아옴
+            //foodTruckInfos = info; //푸드트럭 인포 받아옴
 
             for(int i=0; i<foodTruckInfos.size();i++) {
 

@@ -2,13 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment">
+    tools:context="org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment"
+    android:background="#ffffff">
 
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
         android:id="@+id/review_listview"
+        android:background="#ffffff"
+        android:dividerHeight="0px"
+        android:divider="#ffffff"
         />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_review_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="30sp"
+        android:src="@drawable/foodtruckgram" />
 
 </FrameLayout>

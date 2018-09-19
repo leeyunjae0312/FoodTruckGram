@@ -79,10 +79,10 @@ public class CustomerReviewAdapter extends BaseAdapter{
         TextView reviewContent = (TextView) convertView.findViewById(R.id.review_content);
         TextView reviewDate = (TextView) convertView.findViewById(R.id.review_date);
 
-        userImage.setImageResource(R.drawable.foodtruckgram); //프로필 사진
-        userID.setText(foodTruckInfos.get(position).getOwnerId());
-        reviewContent.setText(foodTruckInfos.get(position).getStoreName());
-        reviewDate.setText(getDate);
+       // userImage.setImageResource(R.drawable.foodtruckgram); //프로필 사진
+      //  userID.setText(foodTruckInfos.get(position).getOwnerId());
+        //reviewContent.setText(foodTruckInfos.get(position).getStoreName());
+       // reviewDate.setText(getDate);
 
 
         return convertView;

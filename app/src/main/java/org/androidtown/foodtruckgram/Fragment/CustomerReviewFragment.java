@@ -3,6 +3,7 @@ package org.androidtown.foodtruckgram.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class CustomerReviewFragment extends Fragment {
     private View view;
     private ListView reviewListView = null;
     private FoodTruckInfo foodTruckInfo;
+    private FloatingActionButton addReviewBtn;
 
     public CustomerReviewFragment() {
         // Required empty public constructor
@@ -38,6 +40,11 @@ public class CustomerReviewFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_customer_review, container, false);
 
 
+        addReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+              ///////////////////////////////////////
+            }
+        });
 
         Bundle bundle = getArguments();
 
@@ -59,6 +66,7 @@ public class CustomerReviewFragment extends Fragment {
         reviewListView = (ListView)view.findViewById(R.id.review_listview);
         CustomerReviewAdapter adapter = new CustomerReviewAdapter(foodTruckInfos);
         reviewListView.setAdapter(adapter);
+
 
         return view;
     }
