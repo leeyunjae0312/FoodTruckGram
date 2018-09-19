@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import org.androidtown.foodtruckgram.Adapter.CustomerReviewAdapter;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.R;
 
@@ -56,8 +57,6 @@ public class CustomerReviewFragment extends Fragment {
         listview = (ListView) view.findViewById(R.id.review_listview);
         listview.setAdapter(adapter);
 
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_account_box_black_36dp),
-                "Box", "Account Box Black 36dp") ;
 
 
 
