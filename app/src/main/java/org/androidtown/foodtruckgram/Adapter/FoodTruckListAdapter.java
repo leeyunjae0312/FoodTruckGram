@@ -90,7 +90,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
        // foodtruckImg.setImageResource(R.drawable.sample); //음식사진
         String base64 = null;
         if(foodTruckInfos.get(position).getMenuList().size() > 0) {
-            base64 = foodTruckInfos.get(position).getMenuList().get(1).getMenuImage();
+            base64 = foodTruckInfos.get(position).getMenuList().get(0).getMenuImage();
         }
 
         Log.i("Edit22", "base64 = " + base64);
@@ -190,7 +190,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
             //하트색 변경
             Log.i("FavoriteList", "foodtruckFavoriteBtn.getDrawable() : " + foodtruckFavoriteBtn.getDrawable());
 
-            if (foodtruckFavoriteBtn.getBackground().equals(R.drawable.list_red_favorite_btn)) {
+            if (aVoid.contains("NO")) {
                 //관심 취소
                 foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
                 Toast.makeText(convertView.getContext(), "즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
