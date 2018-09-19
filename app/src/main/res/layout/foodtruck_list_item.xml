@@ -44,13 +44,14 @@
 
             <ImageButton
                 android:id="@+id/detail_page_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/foodtruck_id"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/foodtruck_profile"
-                android:layout_marginEnd="18dp"
-                android:src="@drawable/detail_btn"
-                android:backgroundTint="#00ff0000"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#00ff0000"
+                android:src="@drawable/detail_btn" />
 
 
         </RelativeLayout>

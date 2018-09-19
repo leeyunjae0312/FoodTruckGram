@@ -30,6 +30,7 @@ public class CustomerReviewAdapter extends BaseAdapter{
     private FoodTruckInfo foodTruckInfo = null;
     private ArrayList<ReviewInfo> reviewInfos;
 
+    private ArrayList<FoodTruckInfo> foodTruckInfos;
 
     public CustomerReviewAdapter(FoodTruckInfo foodTruckInfo, UserInfo userInfo, ArrayList<ReviewInfo> reviewInfos) {
         this.foodTruckInfo = foodTruckInfo;
@@ -38,6 +39,8 @@ public class CustomerReviewAdapter extends BaseAdapter{
 
 
     }
+
+
     @Override
     public int getCount() {
         if(reviewInfos!=null)
@@ -72,10 +75,8 @@ public class CustomerReviewAdapter extends BaseAdapter{
         }
 
 
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String getDate = sdf.format(date);
 
         ImageView userImage = (ImageView) convertView.findViewById(R.id.user_img);
         TextView userID = (TextView) convertView.findViewById(R.id.user_id);
@@ -85,7 +86,6 @@ public class CustomerReviewAdapter extends BaseAdapter{
        // userImage.setImageResource(R.drawable.foodtruckgram); //프로필 사진
         userID.setText(reviewInfos.get(position).getUserName());
         reviewContent.setText(reviewInfos.get(position).getReview());
-
         String reviewdate = sdf.format(reviewInfos.get(position).getDate());
         reviewDate.setText(reviewdate);
 
