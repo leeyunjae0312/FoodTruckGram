@@ -90,12 +90,10 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
             base64 = menuInfos.get(position).getMenuImage();
         }
 
-        Log.i("Edit22", "base64 = " + base64);
         if(base64 != null && base64 != "") {
             byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.menuImage.setImageBitmap(bitmap);
-            Log.i("Edit22", "menuImage = " + base64);
         }
         else {
             holder.menuImage.setImageResource(R.drawable.burger);
