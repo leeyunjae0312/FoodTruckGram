@@ -71,7 +71,6 @@ public class FavoriteActivity extends AppCompatActivity {
             Gson gson = new Gson();
 
             ArrayList<FoodTruckInfo> info = gson.fromJson(aVoid, new TypeToken<List<FoodTruckInfo>>(){}.getType());
-
             UserInfo.getUserInfo().setMyFavoriteList(info);
 
             recyclerView = (RecyclerView)findViewById(R.id.favoriteTruckRecyclerView);
