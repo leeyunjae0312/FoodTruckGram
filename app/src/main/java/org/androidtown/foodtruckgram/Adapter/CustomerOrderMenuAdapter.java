@@ -2,10 +2,12 @@ package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
@@ -23,12 +24,10 @@ import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,6 +85,21 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         holder.menuName.setText(menuInfos.get(position).getMenuName());
         holder.menuPrice.setText(menuInfos.get(position).getMenuPrice());
         //holder.menuImage.setImageResource(menuInfos.get(position).getMenuImage());
+        String base64 = null;
+        if(menuInfos.size() > 0) {
+            base64 = menuInfos.get(position).getMenuImage();
+        }
+
+        Log.i("Edit22", "base64 = " + base64);
+        if(base64 != null && base64 != "") {
+            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.menuImage.setImageBitmap(bitmap);
+            Log.i("Edit22", "menuImage = " + base64);
+        }
+        else {
+            holder.menuImage.setImageResource(R.drawable.burger);
+        }
 
         holder.orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override

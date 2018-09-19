@@ -2,7 +2,10 @@ package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
 import org.androidtown.foodtruckgram.Activity.DetailActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
@@ -81,9 +83,26 @@ public class FoodTruckListAdapter extends BaseAdapter {
         ImageButton detailBtn = (ImageButton)convertView.findViewById(R.id.detail_page_btn);
 
         foodtruckProfile.setImageResource(R.drawable.foodtruckgram); //프로필 사진
+
         foodtruckName.setText(foodTruckInfos.get(position).getStoreName());
         foodtruckID.setText(foodTruckInfos.get(position).getOwnerId());
-        foodtruckImg.setImageResource(R.drawable.sample); //음식사진
+
+       // foodtruckImg.setImageResource(R.drawable.sample); //음식사진
+        String base64 = null;
+        if(foodTruckInfos.get(position).getMenuList().size() > 0) {
+            base64 = foodTruckInfos.get(position).getMenuList().get(1).getMenuImage();
+        }
+
+        Log.i("Edit22", "base64 = " + base64);
+        if(base64 != null && base64 != "") {
+            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            foodtruckImg.setImageBitmap(bitmap);
+            Log.i("Edit22", "menuImage = " + base64);
+        }
+        else {
+            foodtruckImg.setImageResource(R.drawable.burger);
+        }
         foodtruckComment.setText("코멘트 추가해야 함");
 
         Log.i("foodtruckFavorite", foodTruckInfos.get(position).getStoreName() + "// Position=" + position);

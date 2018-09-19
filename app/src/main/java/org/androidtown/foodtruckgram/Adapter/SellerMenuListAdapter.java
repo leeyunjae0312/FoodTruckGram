@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by 이예지 on 2018-09-11.
- */
 
 public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAdapter.ViewHolder> {
 
