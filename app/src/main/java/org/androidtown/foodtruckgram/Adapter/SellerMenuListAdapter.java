@@ -148,6 +148,10 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
             byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             viewHolder.menuImage.setImageBitmap(bitmap);
+            Log.i("Edit", "menuImage = " + base64);
+        }
+        else {
+            viewHolder.menuImage.setImageResource(R.drawable.burger);
         }
 
         viewHolder.name.setText(menuInfo.getMenuName());

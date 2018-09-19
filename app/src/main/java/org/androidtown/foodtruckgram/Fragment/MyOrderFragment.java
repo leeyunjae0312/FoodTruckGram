@@ -103,12 +103,15 @@ public class MyOrderFragment extends Fragment {
             }.getType());
 
 
-            //recyclerView.setHasFixedSize(true);
-            adapter = new CustomerMyOrderAdapter(getActivity(), infos, myorder_count);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(adapter);
+            if(infos != null) {
+                //recyclerView.setHasFixedSize(true);
+                adapter = new CustomerMyOrderAdapter(getActivity(), infos, myorder_count);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(adapter);
 
-            myorder_count.setText(Integer.toString(adapter.getItemCount()));
+                myorder_count.setText(Integer.toString(adapter.getItemCount()));
+            }
+
 
 
         }
