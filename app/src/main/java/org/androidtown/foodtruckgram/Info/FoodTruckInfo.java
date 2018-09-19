@@ -1,8 +1,6 @@
 package org.androidtown.foodtruckgram.Info;
 
 import android.os.AsyncTask;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -22,7 +20,7 @@ public class FoodTruckInfo implements Serializable {
 
     private String storeName="", ownerId="", ownerName="";
     private double longitude,latitude;
-    private boolean isOpen=false;
+    private String isOpen;
     private ArrayList<MenuInfo> menuList;
 
     String serverURL_openFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckLocationAndOpen";
@@ -34,7 +32,7 @@ public class FoodTruckInfo implements Serializable {
         //서버에 개점알림
         this.longitude = longitude;
         this.latitude = latitude;
-        this.isOpen = true;
+        this.isOpen = "true";
 
         FoodTruckOpenDB foodTruckOpenDB = new FoodTruckOpenDB();
 
@@ -48,7 +46,7 @@ public class FoodTruckInfo implements Serializable {
 
     public void closing(){
         //서버에 폐점알림
-        this.isOpen = false;
+        this.isOpen = "false";
 
         FoodTruckCloseDB foodTruckCloseDB = new FoodTruckCloseDB();
         Map<String,String> params = new HashMap<String,String>();
@@ -120,8 +118,12 @@ public class FoodTruckInfo implements Serializable {
         return latitude;
     }
 
-    public boolean isOpen() {
+    public String isOpen() {
         return isOpen;
+    }
+
+    public void setOpen(String open) {
+        isOpen = open;
     }
 
     class FoodTruckOpenDB extends AsyncTask<Map<String, String>, Integer, String> {

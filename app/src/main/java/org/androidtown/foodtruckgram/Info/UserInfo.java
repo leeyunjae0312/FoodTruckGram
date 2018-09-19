@@ -12,9 +12,7 @@ public class UserInfo implements Serializable {
 
     private static UserInfo userInfo = new UserInfo();
     private String userId, password, userName, role, tel;
-
-
-    private ArrayList<FoodTruckInfo> myFavoriteList = new ArrayList<>();
+    private ArrayList<FoodTruckInfo> myFavoriteList;
 
     private UserInfo(){
 
@@ -70,6 +68,14 @@ public class UserInfo implements Serializable {
 
     public void setMyFavoriteList(ArrayList<FoodTruckInfo> myFavoriteList) {
         this.myFavoriteList = myFavoriteList;
+    }
+
+    public void addFavoriteTruck(FoodTruckInfo foodTruckInfo){
+        myFavoriteList.add(foodTruckInfo);
+    }
+
+    public void removeFavoriteTruck(FoodTruckInfo foodTruckInfo){
+        myFavoriteList.remove(foodTruckInfo);
     }
 
 }

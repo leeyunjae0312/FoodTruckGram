@@ -2,6 +2,7 @@ package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
 import org.androidtown.foodtruckgram.Activity.DetailActivity;
 import org.androidtown.foodtruckgram.Activity.LoginActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
+import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Haneul on 2018-09-13.
@@ -31,8 +37,10 @@ public class FoodTruckListAdapter extends BaseAdapter {
     private int listCount = 0;
     private int count=0;
 
-    private UserInfo userInfo = UserInfo.getUserInfo();
 
+    UserInfo userInfo = UserInfo.getUserInfo();
+    ImageView foodtruckFavoriteBtn;
+    View convertView;
 
     public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos)
     {
@@ -71,6 +79,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
             }
             convertView = inflater.inflate(R.layout.foodtruck_list_item, parent, false);
         }
+        this.convertView = convertView;
 
         ImageView foodtruckProfile = (ImageView) convertView.findViewById(R.id.foodtruck_profile);
         final TextView foodtruckName = (TextView) convertView.findViewById(R.id.foodtruck_name);
@@ -84,41 +93,90 @@ public class FoodTruckListAdapter extends BaseAdapter {
         foodtruckImg.setImageResource(R.drawable.sample); //음식사진
         foodtruckComment.setText("코멘트 추가해야 함");
 
+        Log.i("foodtruckFavorite",foodTruckInfos.get(position).getStoreName()+"// Position="+position);
 
+        foodtruckFavoriteBtn = (ImageView) convertView.findViewById(R.id.favorite_btn);
 
-        /////////////////////다시해야함!
-        final ImageButton foodtruckFavoriteBtn = (ImageButton) convertView.findViewById(R.id.favorite_btn);
+        if(isFavoriteTruck(foodTruckInfos.get(position).getStoreName()))
+            foodtruckFavoriteBtn.setImageResource(R.drawable.list_red_favorite_btn);
+        else
+            foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
-        final View finalConvertView = convertView;
         foodtruckFavoriteBtn.setOnClickListener(new ImageButton.OnClickListener() {
             @Override public void onClick(View view) {
+                FavoriteDB favoriteDB = new FavoriteDB();
 
-                for (int i = 0; i < listCount; i++) {
-                    if (userInfo.getMyFavoriteList() != null && userInfo.getMyFavoriteList().get(i).getStoreName().equals(foodtruckName.getText())) {
-                        foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                        Toast.makeText(finalConvertView.getContext(), "즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
-                    }else{
-                        userInfo.getMyFavoriteList().add(foodTruckInfos.get(position));
-                        foodtruckFavoriteBtn.setImageResource(R.drawable.list_red_favorite_btn);
-                        Toast.makeText(finalConvertView.getContext(), "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("storeName",foodTruckInfos.get(position).getStoreName());
+                params.put("userId",userInfo.getUserId());
 
-                }
-            }
-            }
-        });
-
-        ImageButton detailBtn = (ImageButton) convertView.findViewById(R.id.detail_page_btn);
-
-
-        detailBtn.setOnClickListener(new ImageButton.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(finalConvertView.getContext(), DetailActivity.class);
-                finalConvertView.getContext().startActivity(intent);
+                favoriteDB.execute(params);
             }
         });
 
         return convertView;
+    }
+
+    public boolean isFavoriteTruck(String storeName){
+        ArrayList<FoodTruckInfo> favoriteList =  userInfo.getMyFavoriteList();
+        if(favoriteList != null){
+            for(int i=0;i<favoriteList.size();i++){
+                //유저의 favorite목록중 일치하는 것이 있을때
+                if(favoriteList.get(i).getStoreName().equals(storeName)) {
+                    Log.i("Favorite","user");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    class FavoriteDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        String serverURL = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/insertFavoriteStore";
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+            Gson gson = new Gson();
+
+            //하트색 변경
+            Log.i("FavoriteList","foodtruckFavoriteBtn.getDrawable() : "+foodtruckFavoriteBtn.getDrawable());
+
+            if(foodtruckFavoriteBtn.getBackground().equals(R.drawable.list_red_favorite_btn)) {
+                //관심 취소
+                foodtruckFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                Toast.makeText(convertView.getContext(),"즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                //관심추가
+                foodtruckFavoriteBtn.setImageResource(R.drawable.list_red_favorite_btn);
+                Toast.makeText(convertView.getContext() , "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 }
