@@ -136,7 +136,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
 
             actionBar = getSupportActionBar();
-//            actionBar.hide();
 
 
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
