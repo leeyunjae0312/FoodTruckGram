@@ -49,8 +49,8 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
     UserInfo userInfo = UserInfo.getUserInfo();
     List<FoodTruckInfo> foodTruckInfos;
-    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
-    String serverURL_getFavoriteTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFavoriteStoreByUserId";
+    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    String serverURL_getFavoriteTruck = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getFavoriteStoreByUserId";
     FoodTruckDB foodTruckDB;
     FavoriteTruckDB favoriteTruckDB;
 

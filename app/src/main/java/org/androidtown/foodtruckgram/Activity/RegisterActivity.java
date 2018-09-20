@@ -20,8 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     String userId, password, userName, role, tel;
     boolean isCheckId = false;
-    String serverURL_duplicate_check = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/Android_login_duplicate_check";
-    String serverURL_register = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/Android_register";
+    String serverURL_duplicate_check = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/Android_login_duplicate_check";
+    String serverURL_register = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/Android_register";
 
 
     @Override

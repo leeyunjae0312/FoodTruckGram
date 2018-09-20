@@ -35,7 +35,7 @@ public class MyOrderFragment extends Fragment {
     private TextView myorder_count;
     private List<FoodTruckInfo> foodTruckInfos;
 
-    String serverURL_myorder = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getOrderListByUserId";
+    String serverURL_myorder = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getOrderListByUserId";
 
     private View view;
 

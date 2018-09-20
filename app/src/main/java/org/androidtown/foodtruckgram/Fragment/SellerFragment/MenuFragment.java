@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.androidtown.foodtruckgram.Activity.SellerHomeActivity;
 import org.androidtown.foodtruckgram.Activity.SellerMenuEditActivity;
 import org.androidtown.foodtruckgram.Adapter.SellerMenuListAdapter;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
@@ -32,7 +31,7 @@ public class MenuFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<MenuInfo> menuList;
     private SellerMenuListAdapter adapter;
-    static String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/insertMenu";
+    static String serverURL = "http://"+ HttpClient.ipAdress+HttpClient.serverPort + HttpClient.urlBase + "/s/insertMenu";
     FoodTruckInfo foodTruckInfo;
     public MenuFragment(){
 

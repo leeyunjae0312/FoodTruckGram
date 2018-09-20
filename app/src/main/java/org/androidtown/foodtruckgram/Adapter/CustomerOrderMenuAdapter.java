@@ -149,7 +149,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         }
     }
 
-    private String serverURL = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/insertOrder";
+    private String serverURL = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/insertOrder";
 
     class OrderMenuDB extends AsyncTask<Map<String, String>, Integer, String> {
 

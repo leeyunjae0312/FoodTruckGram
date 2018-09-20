@@ -38,7 +38,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         private SellerMenuListAdapter adapter;
         private Context context;
 
-        String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/updateMenu";
+        String serverURL = "http://"+ HttpClient.ipAdress+HttpClient.serverPort + HttpClient.urlBase + "/s/updateMenu";
 
         public ViewHolder(final Context context, View itemView, final SellerMenuListAdapter adapter, final FoodTruckInfo foodTruckInfo) {
             // Stores the itemView in a public final member variable that can be used
@@ -103,7 +103,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
     // Store the context for easy access
     private Context mContext;
     FoodTruckInfo foodTruckInfo;
-    String serverURL = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/deleteMenu";
+    String serverURL = "http://"+ HttpClient.ipAdress+HttpClient.serverPort + HttpClient.urlBase + "/s/deleteMenu";
 
     // Pass in the contact array into the constructor
     public SellerMenuListAdapter(Context context, ArrayList<MenuInfo> menuList, FoodTruckInfo foodTruckInfo) {

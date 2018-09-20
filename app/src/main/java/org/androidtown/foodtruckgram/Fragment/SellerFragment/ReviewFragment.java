@@ -35,7 +35,7 @@ public class ReviewFragment extends Fragment {
     private SellerReviewListAdapter adapter;
     private TextView review_count;
 
-    String serverURL_review = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/getReview";
+    String serverURL_review = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/getReview";
 
     public ReviewFragment() {
         // Required empty public constructor

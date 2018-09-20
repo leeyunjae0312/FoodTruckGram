@@ -21,7 +21,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private String userId, password;
-    String serverURL = "http://"+HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/Android_login";
+    String serverURL = "http://"+HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/Android_login";
     UserInfo userInfo;
     private final String TAG = "LoginActivity";
 

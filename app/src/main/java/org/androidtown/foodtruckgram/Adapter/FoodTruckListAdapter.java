@@ -45,23 +45,24 @@ public class FoodTruckListAdapter extends BaseAdapter {
 
     public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos) {
         this.foodTruckInfos = foodTruckInfos;
-        listCount = foodTruckInfos.size();
+        //listCount = foodTruckInfos.size();
     }
 
     @Override
     public int getCount() {
         Log.i("TAG", "getCount");
-        return listCount;
+       // return listCount;
+        return foodTruckInfos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return foodTruckInfos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -157,7 +158,7 @@ public class FoodTruckListAdapter extends BaseAdapter {
 
     class FavoriteDB extends AsyncTask<Map<String, String>, Integer, String> {
 
-        String serverURL = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/insertFavoriteStore";
+        String serverURL = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/insertFavoriteStore";
 
         @Override
         protected String doInBackground(Map<String, String>... maps) {

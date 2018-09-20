@@ -2,15 +2,13 @@ package org.androidtown.foodtruckgram.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -43,9 +41,9 @@ public class DetailActivity extends AppCompatActivity {
 
     private UserInfo userInfo = UserInfo.getUserInfo();
     private List<FoodTruckInfo> foodTruckInfos;
-    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFoodTruckInfoList";
+    String serverURL_getFoodTruckInfoList = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getFoodTruckInfoList";
     private List<ReviewInfo> reviewInfos;
-    private String serverURL_geReviewInfoList = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getReview";
+    private String serverURL_geReviewInfoList = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getReview";
     private FoodTruckDB foodTruckDB;
     private FoodTruckReviewDB foodTruckReviewDB;
 

@@ -35,7 +35,7 @@ public class OrderListFragment extends Fragment {
     private SellerOrderListAdapter adapter;
     private TextView order_count;
 
-    String serverURL_order = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/getOrderListByStoreName";
+    String serverURL_order = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/getOrderListByStoreName";
 
 
     public OrderListFragment() {

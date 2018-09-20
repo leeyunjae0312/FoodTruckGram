@@ -24,7 +24,7 @@ import java.util.Map;
 public class FavoriteActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    String serverURL_getFavoriteTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/getFavoriteStoreByUserId";
+    String serverURL_getFavoriteTruck = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/getFavoriteStoreByUserId";
     FavoriteTruckDB favoriteTruckDB;
 
     @Override

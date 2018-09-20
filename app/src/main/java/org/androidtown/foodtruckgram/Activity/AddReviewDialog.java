@@ -2,7 +2,6 @@ package org.androidtown.foodtruckgram.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -13,10 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.ReviewInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
@@ -27,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +36,7 @@ public class AddReviewDialog extends Dialog {
     FoodTruckInfo foodTruckInfo;
     ReviewInfo reviewInfo;
 
-    private String serverURL_InsertReview = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/c/insertReview";
+    private String serverURL_InsertReview = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/insertReview";
     private AddReviewDialog.FoodTruckReviewDB foodTruckReviewDB;
     ArrayList<ReviewInfo> reviewInfos;
 

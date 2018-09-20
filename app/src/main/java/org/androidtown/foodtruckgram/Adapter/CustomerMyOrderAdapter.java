@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class CustomerMyOrderAdapter extends RecyclerView.Adapter<CustomerMyOrderAdapter.ViewHolder> {
-    String serverURL_orderDelete = "http://"+ HttpClient.ipAdress+":8080" + HttpClient.urlBase + "/s/deleteOrder";
+    String serverURL_orderDelete = "http://"+ HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/deleteOrder";
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

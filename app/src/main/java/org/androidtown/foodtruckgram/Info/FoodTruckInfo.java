@@ -23,8 +23,8 @@ public class FoodTruckInfo implements Serializable {
     private String isOpen;
     private ArrayList<MenuInfo> menuList;
 
-    String serverURL_openFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckLocationAndOpen";
-    String serverURL_closeFoodTruck = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/updateFoodTruckClose";
+    String serverURL_openFoodTruck = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/updateFoodTruckLocationAndOpen";
+    String serverURL_closeFoodTruck = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/updateFoodTruckClose";
 
 
 

@@ -47,7 +47,7 @@ public class SellerHomeActivity extends AppCompatActivity {
     UserInfo userInfo = UserInfo.getUserInfo();
     public FoodTruckInfo foodTruckInfo;
 
-    String serverURL_getFoodTruckInfo = "http://" + HttpClient.ipAdress + ":8080" + HttpClient.urlBase + "/s/getFoodTruckInfoByStoreName";
+    String serverURL_getFoodTruckInfo = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/getFoodTruckInfoByStoreName";
     FoodTruckDB  foodTruckDB;
 
     @Override
