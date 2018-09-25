@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import org.androidtown.foodtruckgram.Activity.CustomerCouponActivity;
 import org.androidtown.foodtruckgram.Activity.FavoriteActivity;
 import org.androidtown.foodtruckgram.Activity.InfoDialogActivity;
 import org.androidtown.foodtruckgram.Adapter.HomeAutoImgScrollAdapter;
@@ -61,6 +62,13 @@ public class HomeFragment extends Fragment {
             }
         });
         ImageView coupon = (ImageView)view.findViewById(R.id.homeCouponBtn);
+        coupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CustomerCouponActivity.class);
+                startActivity(intent);
+            }
+        });
         ImageView favorite = (ImageView)view.findViewById(R.id.homeFavoriteBtn);
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
