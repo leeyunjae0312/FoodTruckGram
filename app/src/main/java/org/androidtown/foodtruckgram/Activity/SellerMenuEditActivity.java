@@ -76,10 +76,13 @@ public class SellerMenuEditActivity extends AppCompatActivity {
         menuEdit_introduce.setText(menuIntroduce);
 
         imageView = (ImageView)findViewById(R.id.imageView);
-        if(menuImage != null) {
+        if(menuImage != null && !menuImage.equals("")) {
             byte[] decodedString = Base64.decode(menuImage, Base64.NO_WRAP);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             imageView.setImageBitmap(bitmap);
+        }
+        else {
+            imageView.setImageResource(R.drawable.burger);
         }
 
 
@@ -221,6 +224,7 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             MenuInfo menuInfo = new MenuInfo(menuEdit_name.getText().toString(), menuEdit_price.getText().toString(), menuImage, menuEdit_introduce.getText().toString());
+            Log.i("Edit", "foodTruckInfo.editMenu(menuInfo)" + foodTruckInfo.editMenu(menuInfo));
             if (foodTruckInfo.editMenu(menuInfo) == -1)
                 foodTruckInfo.getMenuList().add(menuInfo);
             Toast.makeText(getApplicationContext(), "메뉴 수정/추가 완료", Toast.LENGTH_SHORT).show();

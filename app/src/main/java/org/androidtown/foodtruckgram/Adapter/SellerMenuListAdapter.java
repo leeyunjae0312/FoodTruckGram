@@ -74,6 +74,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                     Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, SellerMenuEditActivity.class);
                     intent.putExtra("foodTruckInfo",foodTruckInfo);
+                    Log.i("yunjae", "menuImageURI = " + menuImageURI.getText());
                     intent.putExtra("menuImage", menuImageURI.getText());
                     intent.putExtra("menuName",name.getText());
                     intent.putExtra("menuPrice",price.getText());
@@ -151,9 +152,9 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
             viewHolder.menuImage.setImageResource(R.drawable.burger);
         }
 
-        viewHolder.name.setText(menuInfo.getMenuName()+"\n");
-        viewHolder.price.setText(menuInfo.getMenuPrice()+"\n");
-        viewHolder.introduce.setText(menuInfo.getMenuIntroduce()+"\n");
+        viewHolder.name.setText(menuInfo.getMenuName());
+        viewHolder.price.setText(menuInfo.getMenuPrice());
+        viewHolder.introduce.setText(menuInfo.getMenuIntroduce());
         Log.i("Edit", "introduce = " + menuInfo.getMenuIntroduce());
         viewHolder.menuImageURI.setText(menuInfo.getMenuImage());
 

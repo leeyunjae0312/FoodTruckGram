@@ -93,7 +93,9 @@ public class FoodTruckInfo implements Serializable {
 
     public int editMenu(MenuInfo menu){
         for(int i=0;i<menuList.size();i++){
+            Log.i("yunjae", menuList.get(i).getMenuName() + " = " + menu.getMenuName());
             if(menuList.get(i).getMenuName().equals(menu.getMenuName())) {
+                Log.i("yunjae", "//////////");
                 menuList.remove(i); //기존 메뉴 삭제
                 menuList.add(menu); //수정 메뉴 추가
                 return 1;

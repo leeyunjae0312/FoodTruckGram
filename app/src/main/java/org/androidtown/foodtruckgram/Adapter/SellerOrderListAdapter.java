@@ -1,13 +1,21 @@
 package org.androidtown.foodtruckgram.Adapter;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.androidtown.foodtruckgram.Info.OrderInfo;
 import org.androidtown.foodtruckgram.R;
@@ -67,13 +75,44 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
         params.put("userId",orderList.get(p).getUserId());
         params.put("menuName",orderList.get(p).getMenuName());
 
+        sendSMS(orderList.get(p).getTel(), orderList.get(p).getMenuName() + "메뉴가 주문이 완료되었습니다.");
+
         OrderDeleteDB orderDeleteDB = new OrderDeleteDB();
         orderDeleteDB.execute(params);
+
 
         orderList.remove(p);
         order_count.setText(Integer.toString(getItemCount()));
         notifyItemRemoved(p);
     }
+
+    private void sendSMS(String phoneNumber, String message)
+    {
+
+        Log.i("yunjae", "phoneNumber = " + phoneNumber + " message = " + message);
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(getContext(), 0, new Intent(SENT), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(getContext(), 0, new Intent(DELIVERED), 0);
+
+        //---when the SMS has been sent---
+        getContext().registerReceiver(new BroadcastReceiver() {
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode()) {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(getContext(), "알림 문자 메시지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(SENT));
+
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+        Toast.makeText(getContext(),"전송을 완료하였습니다",Toast.LENGTH_LONG).show();
+    }
+
+
 
     // Store a member variable for the contacts
     private ArrayList<OrderInfo> orderList;

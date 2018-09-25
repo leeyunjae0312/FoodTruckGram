@@ -11,7 +11,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -45,14 +48,19 @@
         <activity
             android:name=".Activity.InfoDialogActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <activity
-            android:name=".Activity.DetailActivity">
-
-        </activity>
-
+        <activity android:name=".Activity.DetailActivity"></activity>
         <activity android:name=".Activity.FavoriteActivity" />
-        <activity android:name=".Activity.CustomerCouponActivity"></activity>
+        <activity android:name=".Activity.CustomerCouponActivity" />
+
+        <receiver
+            android:name=".Activity.SMSReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
