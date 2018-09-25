@@ -19,7 +19,7 @@ public class HttpClient {
 
     private static final String WWW_FORM = "application/x-www-form-urlencoded";
     public static final String ipAdress = "172.30.1.16";
-    public static final String serverPort = ":8081";
+    public static final String serverPort = ":8080";
     public static final String urlBase = "/foodtruckgram";
 
     private int httpStatusCode;

@@ -69,6 +69,7 @@ public class MapFragment extends Fragment {
     //flaoting Button
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
+    private Boolean isMarker = false;
     private FloatingActionButton fab, fab1, fab2;
 
     private TMapGpsManager gps;
@@ -78,7 +79,7 @@ public class MapFragment extends Fragment {
     private static int mMarkerID;
     private static String apiKey = "1c8d9930-5a2b-4ed2-8c32-fa7d9a216834";
 
-  //  private ArrayList<TMapPoint> arrayTmapPoint = new ArrayList<>();
+    //  private ArrayList<TMapPoint> arrayTmapPoint = new ArrayList<>();
     private ArrayList<String> arrayAddressName = new ArrayList<>();
     private ArrayList<MapPoint> arrayMapPoint = new ArrayList<>();
 
@@ -108,14 +109,16 @@ public class MapFragment extends Fragment {
         fab2 = (FloatingActionButton) view.findViewById(R.id.fab2); //푸드트럭 마커
 
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 anim();
             }
         });
 
         //현재위치 버튼
         fab1.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 setCurrentLocation();
             }
         });
@@ -171,9 +174,9 @@ public class MapFragment extends Fragment {
 
                 if (EditorInfo.IME_ACTION_SEARCH == 1)
                     Toast.makeText(getActivity().getApplicationContext(), "검색", Toast.LENGTH_LONG).show();
-                    searchData = searchBar.getText().toString();
-                    searchAddress(searchData);
-                   return true;
+                searchData = searchBar.getText().toString();
+                searchAddress(searchData);
+                return true;
             }
         });
 
@@ -222,30 +225,35 @@ public class MapFragment extends Fragment {
         TMapMarkerItem markerItem1 = new TMapMarkerItem();
         TMapPoint tMapPoint1 = new TMapPoint(37.570841, 126.985302); // SKT타워
 
+        if (isMarker) {
+            tMapView.removeAllMarkerItem();
 
-        for(int i=0; i<foodTruckInfos.size(); i++) {
-            TMapPoint tMapPoint = new TMapPoint(foodTruckInfos.get(i).getLatitude(), foodTruckInfos.get(i).getLongitude()); //푸드트럭 위치 저장
-            TMapMarkerItem tMapMarkerItem = new TMapMarkerItem();
-            tMapMarkerItem.setIcon(bitmap); // 마커 아이콘 지정
-            tMapMarkerItem.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
-            tMapMarkerItem.setTMapPoint(tMapPoint); // 마커의 좌표 지정
-            tMapMarkerItem.setName(foodTruckInfos.get(i).getStoreName()); // 마커의 타이틀 지정
-            tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
-            tMapMarkerItem.setCanShowCallout(true); //풍선뷰 설정
-            tMapMarkerItem.setCalloutTitle(tMapMarkerItem.getName()); //풍선뷰에 표시될 내용
-            tMapMarkerItem.setAutoCalloutVisible(true); //풍선뷰 자동 설정
-            tMapMarkerItem.setEnableClustering(true); //군집화 설정
-            tMapView.addMarkerItem("markerItem" + i, tMapMarkerItem); // 지도에 마커 추가
+            isMarker = false;
+
+        } else {
+            for (int i = 0; i < foodTruckInfos.size(); i++) {
+                TMapPoint tMapPoint = new TMapPoint(foodTruckInfos.get(i).getLatitude(), foodTruckInfos.get(i).getLongitude()); //푸드트럭 위치 저장
+                TMapMarkerItem tMapMarkerItem = new TMapMarkerItem();
+                tMapMarkerItem.setIcon(bitmap); // 마커 아이콘 지정
+                tMapMarkerItem.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
+                tMapMarkerItem.setTMapPoint(tMapPoint); // 마커의 좌표 지정
+                tMapMarkerItem.setName(foodTruckInfos.get(i).getStoreName()); // 마커의 타이틀 지정
+                tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
+                tMapMarkerItem.setCanShowCallout(true); //풍선뷰 설정
+                tMapMarkerItem.setCalloutTitle(tMapMarkerItem.getName()); //풍선뷰에 표시될 내용
+                tMapMarkerItem.setAutoCalloutVisible(true); //풍선뷰 자동 설정
+                tMapMarkerItem.setEnableClustering(true); //군집화 설정
+                tMapView.addMarkerItem("markerItem" + i, tMapMarkerItem); // 지도에 마커 추가
+
+                isMarker = true;
+            }
+          //  setCurrentLocation();
+
         }
-        setCurrentLocation();
-
-
-
-       /* 마커 모두 지우기
-       tMapView.removeAllMarkerItem();*/
     }
 
-    //last 현재 위치 ---->>>>>>>>>>>>> ?????????????????
+        //last 현재 위치 ---->>>>>>>>>>>>> ?????????????????
+
     public void setCurrentLocation() {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -275,7 +283,7 @@ public class MapFragment extends Fragment {
 
                 for (int i = 0; i < poiItem.size(); i++) {
                     TMapPOIItem item = (TMapPOIItem) poiItem.get(i);
-                    arrayMapPoint.add(new MapPoint(item.getPOIName().toString(),item.getPOIAddress().toString(),item.getPOIPoint()));
+                    arrayMapPoint.add(new MapPoint(item.getPOIName().toString(), item.getPOIAddress().toString(), item.getPOIPoint()));
                     arrayAddressName.add(item.getPOIName());
 
                     Log.d("POI Name: ", item.getPOIName().toString() + ", " +
