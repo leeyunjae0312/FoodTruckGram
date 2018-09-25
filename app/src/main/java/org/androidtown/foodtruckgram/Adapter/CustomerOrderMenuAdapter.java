@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -18,12 +19,16 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
+import org.androidtown.foodtruckgram.Activity.SellerHomeActivity;
+import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -180,7 +185,6 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
             Log.i("yunjae", aVoid);
 
             Gson gson = new Gson();
-
 
         }
     }

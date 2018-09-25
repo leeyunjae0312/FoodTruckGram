@@ -221,12 +221,11 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             MenuInfo menuInfo = new MenuInfo(menuEdit_name.getText().toString(), menuEdit_price.getText().toString(), menuImage, menuEdit_introduce.getText().toString());
-            if (foodTruckInfo.editMenu(menuInfo) == -1)
-                foodTruckInfo.getMenuList().add(menuInfo);
+            foodTruckInfo.editMenu(menuInfo);
             Toast.makeText(getApplicationContext(), "메뉴 수정/추가 완료", Toast.LENGTH_SHORT).show();
 
             Log.i("Edit", "메뉴 수정/추가 완료");
-            Log.i("Edit", "foodTruckInfo.getMenuList().size()" + foodTruckInfo.getMenuList().size() + " menuImage = " + menuEdit_introduce.getText().toString());
+            Log.i("Edit", "foodTruckInfo.getMenuList().size() = " + foodTruckInfo.getMenuList().size() + " menuImage = " + menuEdit_introduce.getText().toString());
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("foodTruckInfo", foodTruckInfo);

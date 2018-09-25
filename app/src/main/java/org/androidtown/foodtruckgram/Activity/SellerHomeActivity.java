@@ -1,5 +1,6 @@
 package org.androidtown.foodtruckgram.Activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -65,7 +66,6 @@ public class SellerHomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 4);
 
-
         Bundle bundle = new Bundle(1);
         bundle.putSerializable("foodTruckInfo",foodTruckInfo);
 
@@ -99,13 +99,12 @@ public class SellerHomeActivity extends AppCompatActivity {
             Log.i("Edit","foodTruckInfo.getMenuList().size()"+foodTruckInfo.getMenuList().size());
             SellerMenuListAdapter adapter = menuFragment.getAdapter();
             adapter.notifyData(foodTruckInfo);
+            viewPagerAdapter.switchFragment(2,new MenuFragment());
             RecyclerView recyclerView = (RecyclerView)findViewById(R.id.seller_menu_recyclerView);
             recyclerView.setAdapter(adapter);
 
         }
     }
-
-
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
 

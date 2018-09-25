@@ -84,8 +84,6 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                 }
             });
 
-
-
         }
 
         @Override
@@ -140,12 +138,12 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         // Set item views based on your views and data model
         //viewHolder.menuImage.setImageResource(R.drawable.burger);  //menu image edit
         String base64 = menuInfo.getMenuImage();
-        Log.i("Edit", "base64 = " + base64);
+        //Log.i("Edit", "base64 = " + base64);
         if(base64 != null && base64 != "") {
             byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             viewHolder.menuImage.setImageBitmap(bitmap);
-            Log.i("Edit", "menuImage = " + base64);
+            //Log.i("Edit", "menuImage = " + base64);
         }
         else {
             viewHolder.menuImage.setImageResource(R.drawable.burger);
@@ -154,7 +152,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         viewHolder.name.setText(menuInfo.getMenuName()+"\n");
         viewHolder.price.setText(menuInfo.getMenuPrice()+"\n");
         viewHolder.introduce.setText(menuInfo.getMenuIntroduce()+"\n");
-        Log.i("Edit", "introduce = " + menuInfo.getMenuIntroduce());
+        //Log.i("Edit", "introduce = " + menuInfo.getMenuIntroduce());
         viewHolder.menuImageURI.setText(menuInfo.getMenuImage());
 
         Log.i("RecyclerView","name : "+ menuInfo.getMenuName() + " / price : "+menuInfo.getMenuPrice());

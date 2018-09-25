@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/foodtruckgram"
@@ -45,14 +44,10 @@
         <activity
             android:name=".Activity.InfoDialogActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <activity
-            android:name=".Activity.DetailActivity">
-
-        </activity>
-
+        <activity android:name=".Activity.DetailActivity"></activity>
         <activity android:name=".Activity.FavoriteActivity" />
-        <activity android:name=".Activity.CustomerCouponActivity"></activity>
+        <activity android:name=".Activity.CustomerCouponActivity" />
+        <activity android:name=".Activity.CustomerOrderIdentifyDialog"></activity>
     </application>
 
 </manifest>

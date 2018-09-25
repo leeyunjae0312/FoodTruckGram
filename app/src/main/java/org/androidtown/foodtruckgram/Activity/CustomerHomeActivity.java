@@ -34,7 +34,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
     ActionBar actionBar;
 
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
+    private static ViewPagerAdapter viewPagerAdapter;
 
     BottomNavigationView bottomNavigationView;
 
@@ -90,6 +90,10 @@ public class CustomerHomeActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(myOrderFragment);
 
         viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    public static ViewPagerAdapter getViewPagerAdapter() {
+        return viewPagerAdapter;
     }
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {

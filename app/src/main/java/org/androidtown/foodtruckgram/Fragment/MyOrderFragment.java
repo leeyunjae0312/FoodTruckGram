@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
 import org.androidtown.foodtruckgram.Adapter.CustomerMyOrderAdapter;
+import org.androidtown.foodtruckgram.Adapter.CustomerOrderMenuAdapter;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.OrderInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
@@ -43,7 +46,6 @@ public class MyOrderFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,18 +57,13 @@ public class MyOrderFragment extends Fragment {
         Bundle bundle = getArguments();
         foodTruckInfos = (ArrayList<FoodTruckInfo>) bundle.getSerializable("foodTruckInfos");
 
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+        Log.i("Order","Fragment onCreateView");
         OrderDB orderDB = new OrderDB();
         Map<String, String> param = new HashMap<>();
         param.put("userId", UserInfo.getUserInfo().getUserId());
         orderDB.execute(param);
 
+        return view;
     }
 
     class OrderDB extends AsyncTask<Map<String, String>, Integer, String> {
@@ -102,8 +99,10 @@ public class MyOrderFragment extends Fragment {
             ArrayList<OrderInfo> infos = gson.fromJson(aVoid, new TypeToken<List<OrderInfo>>() {
             }.getType());
 
+            Log.i("Order","OrderSize : "+infos.size());
 
             if(infos != null) {
+                Log.i("Order","OrderSize : "+infos.size());
                 //recyclerView.setHasFixedSize(true);
                 adapter = new CustomerMyOrderAdapter(getActivity(), infos, myorder_count);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

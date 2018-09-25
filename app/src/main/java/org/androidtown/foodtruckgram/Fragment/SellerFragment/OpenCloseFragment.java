@@ -106,12 +106,14 @@ public class OpenCloseFragment extends Fragment {
         final TextView openBtn = (TextView)view.findViewById(R.id.openBtn);
         final TextView closeBtn = (TextView)view.findViewById(R.id.closeBtn);
 
-        if(foodTruckInfo.isOpen().equals("true")){
+        if(foodTruckInfo.isOpen().equals("false")){
             //Open State
+            textView.setText("현재 위치에서 개점하시겠습니까?");
             openBtn.setVisibility(View.VISIBLE);
             closeBtn.setVisibility(View.INVISIBLE);
         }
         else{
+            textView.setText("현재 위치에서 폐점하시겠습니까?");
             openBtn.setVisibility(View.INVISIBLE);
             closeBtn.setVisibility(View.VISIBLE);
         }
