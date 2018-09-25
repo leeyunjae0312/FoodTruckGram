@@ -71,7 +71,6 @@ public class MapFragment extends Fragment {
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
 
-
     private TMapGpsManager gps;
     private TMapView tMapView;
     private TMapData tmapdata;
@@ -180,8 +179,6 @@ public class MapFragment extends Fragment {
 
         searchBar.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, arrayAddressName));
 
-
-
 /*
 ///위치정보 주소로 변환 코드
         try {
@@ -255,7 +252,6 @@ public class MapFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-
         double latitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
         double longitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
 
@@ -286,9 +282,6 @@ public class MapFragment extends Fragment {
                             "Address: " + item.getPOIAddress().replace("null", "") + ", " +
                             "Point: " + item.getPOIPoint().toString());
                 }
-
-
-
             }
         });
     }

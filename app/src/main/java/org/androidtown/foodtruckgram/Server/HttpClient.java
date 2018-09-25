@@ -18,7 +18,7 @@ import java.util.Map;
 public class HttpClient {
 
     private static final String WWW_FORM = "application/x-www-form-urlencoded";
-    public static final String ipAdress = "192.168.0.12";
+    public static final String ipAdress = "172.30.1.16";
     public static final String serverPort = ":8081";
     public static final String urlBase = "/foodtruckgram";
 
