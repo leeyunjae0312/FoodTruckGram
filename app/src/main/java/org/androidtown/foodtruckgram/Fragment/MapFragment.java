@@ -5,6 +5,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,10 +42,12 @@ import android.widget.Toast;
 
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
+import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
+import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MapPoint;
 import org.androidtown.foodtruckgram.R;
 
@@ -67,7 +71,6 @@ public class MapFragment extends Fragment {
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
 
-
     private TMapGpsManager gps;
     private TMapView tMapView;
     private TMapData tmapdata;
@@ -80,6 +83,7 @@ public class MapFragment extends Fragment {
     private ArrayList<MapPoint> arrayMapPoint = new ArrayList<>();
 
     SearchView searchView;
+    private ArrayList<FoodTruckInfo> foodTruckInfos;
 
     public MapFragment() {
     }
@@ -90,6 +94,10 @@ public class MapFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        //푸드트럭 정보 array
+        Bundle bundle = getArguments();
+        foodTruckInfos = (ArrayList<FoodTruckInfo>) bundle.getSerializable("foodTruckInfos");
+
 
         //floating button
         fab_open = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fab_open);
@@ -97,7 +105,7 @@ public class MapFragment extends Fragment {
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab_current_location); //현재위치
-        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
+        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2); //푸드트럭 마커
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -105,12 +113,20 @@ public class MapFragment extends Fragment {
             }
         });
 
+        //현재위치 버튼
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 setCurrentLocation();
             }
         });
 
+        //푸드트럭 마커 버튼
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                markerFoodtruck();
+            }
+        });
 
         tMapView = new TMapView(getActivity());
 
@@ -163,8 +179,6 @@ public class MapFragment extends Fragment {
 
         searchBar.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, arrayAddressName));
 
-
-
 /*
 ///위치정보 주소로 변환 코드
         try {
@@ -178,21 +192,6 @@ public class MapFragment extends Fragment {
         }catch(Exception e) {
             e.printStackTrace();
         }*/
-
-////터치 테스트////
-/*        tMapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
-            @Override
-            public boolean onPressEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                Toast.makeText(getActivity(), "onPress~!", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onPressUpEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                //Toast.makeText(MapEvent.this, "onPressUp~!", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });*/
 
         return view;
     }
@@ -214,13 +213,44 @@ public class MapFragment extends Fragment {
         }
     }
 
+    public void markerFoodtruck() {
+
+
+        // 마커 아이콘
+        Bitmap bitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.marker);
+
+        TMapMarkerItem markerItem1 = new TMapMarkerItem();
+        TMapPoint tMapPoint1 = new TMapPoint(37.570841, 126.985302); // SKT타워
+
+
+        for(int i=0; i<foodTruckInfos.size(); i++) {
+            TMapPoint tMapPoint = new TMapPoint(foodTruckInfos.get(i).getLatitude(), foodTruckInfos.get(i).getLongitude()); //푸드트럭 위치 저장
+            TMapMarkerItem tMapMarkerItem = new TMapMarkerItem();
+            tMapMarkerItem.setIcon(bitmap); // 마커 아이콘 지정
+            tMapMarkerItem.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
+            tMapMarkerItem.setTMapPoint(tMapPoint); // 마커의 좌표 지정
+            tMapMarkerItem.setName(foodTruckInfos.get(i).getStoreName()); // 마커의 타이틀 지정
+            tMapMarkerItem.setVisible(TMapMarkerItem.VISIBLE);
+            tMapMarkerItem.setCanShowCallout(true); //풍선뷰 설정
+            tMapMarkerItem.setCalloutTitle(tMapMarkerItem.getName()); //풍선뷰에 표시될 내용
+            tMapMarkerItem.setAutoCalloutVisible(true); //풍선뷰 자동 설정
+            tMapMarkerItem.setEnableClustering(true); //군집화 설정
+            tMapView.addMarkerItem("markerItem" + i, tMapMarkerItem); // 지도에 마커 추가
+        }
+        setCurrentLocation();
+
+
+
+       /* 마커 모두 지우기
+       tMapView.removeAllMarkerItem();*/
+    }
+
     //last 현재 위치 ---->>>>>>>>>>>>> ?????????????????
     public void setCurrentLocation() {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
-
 
         double latitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
         double longitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
@@ -252,9 +282,6 @@ public class MapFragment extends Fragment {
                             "Address: " + item.getPOIAddress().replace("null", "") + ", " +
                             "Point: " + item.getPOIPoint().toString());
                 }
-
-
-
             }
         });
     }
