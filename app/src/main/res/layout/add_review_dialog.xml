@@ -24,13 +24,13 @@
         <EditText
             android:id="@+id/add_review_content"
             android:layout_width="match_parent"
-            android:inputType="textMultiLine|textNoSuggestions"
             android:layout_height="0dp"
-            android:padding="15dp"
-            android:gravity="center"
+            android:layout_weight="0.9"
             android:background="@color/white"
-            android:hint="리류를 작성해 주세요"
-            android:layout_weight="0.9" />
+            android:gravity="center"
+            android:hint="리뷰를 작성해 주세요"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:padding="15dp" />
     </LinearLayout>
 
     <LinearLayout

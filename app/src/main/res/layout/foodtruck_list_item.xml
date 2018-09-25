@@ -42,7 +42,7 @@
                 android:text="#푸드트럭 ID" />
 
 
-            <ImageButton
+         <!--   <ImageButton
                 android:id="@+id/detail_page_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="#00ff0000"
-                android:src="@drawable/detail_btn" />
+                android:src="@drawable/detail_btn" />-->
 
 
         </RelativeLayout>
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:id="@+id/foodtruck_img"
@@ -84,27 +84,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="7dp">
+            android:layout_marginTop="4dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="15dp">
 
                 <ImageButton
-                    android:id="@+id/order_btn"
+                    android:id="@+id/detail_page_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/list_order_btn"
+                    android:src="@drawable/ic_detail"
                     android:backgroundTint="#00ff0000" />
 
                 <TextView
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="13dp"
-                    android:text="주문하기"
+                    android:text="상세 보기"
 
                     />
 
@@ -114,15 +115,14 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:gravity="right"
-               android:layout_marginRight="15dp">
+               android:layout_marginRight="10dp">
 
                <ImageView
                    android:id="@+id/favorite_btn"
-                   android:layout_width="40dp"
-                   android:layout_height="40dp"
-                   android:background="@drawable/ic_favorite_border_black_24dp" />
-                   <!--android:src="@drawable/ic_favorite_border_black_24dp"
-                   android:background="#00ff0000"-->/>
+                   android:layout_margin="10dp"
+                   android:layout_width="35dp"
+                   android:layout_height="35dp"
+                   android:background="@drawable/ic_like_black" />
 
            </LinearLayout>
 
