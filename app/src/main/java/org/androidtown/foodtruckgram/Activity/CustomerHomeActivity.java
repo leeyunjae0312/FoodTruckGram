@@ -79,6 +79,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("foodTruckInfos",(Serializable) foodTruckInfos);
         truckListFragment.setArguments(bundle);
+        mapFramgment.setArguments(bundle);
 
         myOrderFragment = new MyOrderFragment();
         myOrderFragment.setArguments(bundle);
