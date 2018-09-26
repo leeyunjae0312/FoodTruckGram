@@ -34,7 +34,7 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView deleteCheck;
+        public ImageView deleteCheck, message;
         public TextView userId, tel, menuName, price;
         private SellerOrderListAdapter adapter;
         private Context context;
@@ -47,6 +47,7 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
             this.adapter = adapter;
 
             deleteCheck = (ImageView)itemView.findViewById(R.id.delete);
+            message = (ImageView)itemView.findViewById(R.id.message);
             userId = (TextView)itemView.findViewById(R.id.userId);
             tel = (TextView)itemView.findViewById(R.id.tel);
             menuName = (TextView)itemView.findViewById(R.id.menuName);
@@ -58,6 +59,15 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
                 public void onClick(View v) {
                     int position = getLayoutPosition();
                     adapter.removeItem(position);
+                }
+            });
+
+            message.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    adapter.sendSMS(position);
                 }
             });
 
@@ -75,7 +85,6 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
         params.put("userId",orderList.get(p).getUserId());
         params.put("menuName",orderList.get(p).getMenuName());
 
-        sendSMS(orderList.get(p).getTel(), orderList.get(p).getMenuName() + "메뉴가 주문이 완료되었습니다.");
 
         OrderDeleteDB orderDeleteDB = new OrderDeleteDB();
         orderDeleteDB.execute(params);
@@ -86,8 +95,10 @@ public class SellerOrderListAdapter extends RecyclerView.Adapter<SellerOrderList
         notifyItemRemoved(p);
     }
 
-    private void sendSMS(String phoneNumber, String message)
+    private void sendSMS(int p)
     {
+        String phoneNumber = orderList.get(p).getTel();
+        String message = orderList.get(p).getMenuName() + "메뉴가 주문이 완료되었습니다.";
 
         Log.i("yunjae", "phoneNumber = " + phoneNumber + " message = " + message);
         String SENT = "SMS_SENT";

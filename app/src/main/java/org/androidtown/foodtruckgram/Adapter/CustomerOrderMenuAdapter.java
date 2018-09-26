@@ -110,7 +110,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         holder.orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (foodTruckInfo.isOpen().equals("treu")) {
+                if (foodTruckInfo.isOpen().equals("true")) {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("userId", UserInfo.getUserInfo().getUserId());
                     params.put("tel", UserInfo.getUserInfo().getTel());

@@ -123,7 +123,7 @@ public class MyOrderFragment extends Fragment {
             ArrayList<OrderInfo> infos = gson.fromJson(aVoid, new TypeToken<List<OrderInfo>>() {
             }.getType());
 
-            Log.i("Order","OrderSize : "+infos.size());
+//            Log.i("Order","OrderSize : "+infos.size());
 
             if(infos != null) {
                 Log.i("Order","OrderSize : "+infos.size());
