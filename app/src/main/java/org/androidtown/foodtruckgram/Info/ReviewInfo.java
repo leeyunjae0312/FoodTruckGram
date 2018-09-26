@@ -1,12 +1,13 @@
 package org.androidtown.foodtruckgram.Info;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by user on 2018-09-13.
  */
 
-public class ReviewInfo {
+public class ReviewInfo implements Serializable{
 
     private String userName;
     private Date date;

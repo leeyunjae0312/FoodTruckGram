@@ -1,7 +1,9 @@
 package org.androidtown.foodtruckgram.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
+import org.androidtown.foodtruckgram.Activity.CustomerOrderIdentifyDialog;
 import org.androidtown.foodtruckgram.Activity.SellerHomeActivity;
 import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
@@ -107,39 +110,22 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         holder.orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //주문 내용 확인 및 서버에 전달(Dialog)
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.context);
-                builder.setIcon(R.drawable.foodtruckgram);
-                builder.setTitle("주문 확인");
-                builder.setMessage("\n주문 내역 : "+menuInfos.get(position).getMenuName()+" : "+menuInfos.get(position).getMenuPrice());
-                builder.setPositiveButton("완료",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(holder.context,"주문이 완료되었습니다.",Toast.LENGTH_LONG).show();
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userId", UserInfo.getUserInfo().getUserId());
+                params.put("tel", UserInfo.getUserInfo().getTel());
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                String new_date = date_format.format(date);
+                params.put("date",new_date);
+                params.put("storeName", foodTruckInfo.getStoreName());
+                Log.i("Order",foodTruckInfo.getStoreName());
+                params.put("menuName", menuInfos.get(position).getMenuName());
+                params.put("price", menuInfos.get(position).getMenuPrice());
 
-                                Map<String, String> params = new HashMap<String, String>();
-                                params.put("userId", UserInfo.getUserInfo().getUserId());
-                                params.put("tel", UserInfo.getUserInfo().getTel());
-                                Date date = new Date(System.currentTimeMillis());
-                                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-                                String new_date = date_format.format(date);
-                                params.put("date",new_date);
-                                params.put("storeName", foodTruckInfo.getStoreName());
-                                Log.i("Order",foodTruckInfo.getStoreName());
-                                params.put("menuName", menuInfos.get(position).getMenuName());
-                                params.put("price", menuInfos.get(position).getMenuPrice());
+                Intent intent = new Intent(holder.context, CustomerOrderIdentifyDialog.class);
+                intent.putExtra("params",(HashMap)params);
+                ((Activity) holder.context).startActivityForResult(intent, 200);
 
-                                OrderMenuDB orderMenuDB = new OrderMenuDB();
-                                orderMenuDB.execute(params);
-                            }
-                        });
-                builder.setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(holder.context,"주문이 취소되었습니다.",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                builder.show();
             }
         });
     }
@@ -154,38 +140,5 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         }
     }
 
-    private String serverURL = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/c/insertOrder";
 
-    class OrderMenuDB extends AsyncTask<Map<String, String>, Integer, String> {
-
-        @Override
-        protected String doInBackground(Map<String, String>...maps) {
-
-            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL);
-            http.addAllParameters(maps[0]);
-
-            HttpClient post = http.create();
-            post.request();
-
-            int statusCode = post.getHttpStatusCode();
-
-            Log.i("yunjae", "응답코드"+statusCode);
-
-            String body = post.getBody();
-
-            Log.i("yunjae", "body : "+body);
-
-            return body;
-
-        }
-
-        @Override
-        protected void onPostExecute(String aVoid) {
-            super.onPostExecute(aVoid);
-            Log.i("yunjae", aVoid);
-
-            Gson gson = new Gson();
-
-        }
-    }
 }

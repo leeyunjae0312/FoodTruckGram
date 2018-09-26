@@ -73,7 +73,7 @@ public class SellerHomeActivity extends AppCompatActivity {
         int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
 
         if(permissonCheck == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getApplicationContext(), "SMS 송신권한 있음", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "SMS 송신권한 있음", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getApplicationContext(), "SMS 송신권한 없음", Toast.LENGTH_SHORT).show();
 
@@ -94,7 +94,7 @@ public class SellerHomeActivity extends AppCompatActivity {
         int permissonCheckRead= ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
 
         if(permissonCheckRead == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getApplicationContext(), "SMS read권한 있음", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "SMS read권한 있음", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getApplicationContext(), "SMS read권한 없음", Toast.LENGTH_SHORT).show();
 

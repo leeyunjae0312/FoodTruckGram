@@ -7,22 +7,27 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.androidtown.foodtruckgram.Adapter.CustomerMyOrderAdapter;
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.CustomerReviewFragment;
+import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
 import org.androidtown.foodtruckgram.Fragment.OrderFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.OrderInfo;
 import org.androidtown.foodtruckgram.Info.ReviewInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +101,17 @@ public class DetailActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==200 && resultCode==RESULT_OK) {
+
+            Log.i("Order","Activity - UI 갱신");
+            //MyOrderFragment.updateUI();
+
+        }
     }
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {

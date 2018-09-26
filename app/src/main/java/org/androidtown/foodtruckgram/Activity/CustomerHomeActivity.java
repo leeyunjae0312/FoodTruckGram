@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,12 +22,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.androidtown.foodtruckgram.Adapter.CustomerMyOrderAdapter;
 import org.androidtown.foodtruckgram.Adapter.ViewPagerAdapter;
 import org.androidtown.foodtruckgram.Fragment.HomeFragment;
 import org.androidtown.foodtruckgram.Fragment.MapFragment;
 import org.androidtown.foodtruckgram.Fragment.MyOrderFragment;
 import org.androidtown.foodtruckgram.Fragment.TruckListFragment;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.MenuInfo;
+import org.androidtown.foodtruckgram.Info.OrderInfo;
 import org.androidtown.foodtruckgram.Info.UserInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
@@ -66,7 +70,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
     BroadcastReceiver myReceiver = new SMSReceiver();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +88,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
         int permissonCheckRead= ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
 
         if(permissonCheckRead == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getApplicationContext(), "SMS read권한 있음", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "SMS read권한 있음", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getApplicationContext(), "SMS read권한 없음", Toast.LENGTH_SHORT).show();
 
@@ -152,9 +155,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
     }
 
-    public static ViewPagerAdapter getViewPagerAdapter() {
-        return viewPagerAdapter;
-    }
 
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
 
