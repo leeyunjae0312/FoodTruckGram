@@ -1,14 +1,19 @@
 package org.androidtown.foodtruckgram.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,18 +34,39 @@ public class CustomerOrderIdentifyDialog extends AppCompatActivity {
 
     Map<String, String> params;
 
+    TextView actionbarTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         setContentView(R.layout.activity_customer_order_identify_dialog);
+
+        actionbarTitle = (TextView)findViewById(R.id.custom_actionbar_text);
 
         Intent intent = getIntent();
         params = (Map<String, String>) intent.getSerializableExtra("params");
 
+        actionbarTitle.setText(params.get("storeName"));
+       /* ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(params.get("storeName"));*/
+
+
+
+        ImageView orderIdentifyMenuImage = (ImageView)findViewById(R.id.orderIdentifyMenuImage);
+//        orderIdentifyMenuImage.setImageResource(Integer.parseInt(params.get("menuImg")));
+        orderIdentifyMenuImage.setImageResource(R.drawable.sample);
+
         TextView orderIdentifyMenuName = (TextView)findViewById(R.id.orderIdentifyMenuName);
-        orderIdentifyMenuName.setText("메뉴 : "+params.get("menuName"));
+        orderIdentifyMenuName.setText(params.get("menuName"));
+
         TextView orderIdentifyMenuPrice = (TextView)findViewById(R.id.orderIdentifyMenuPrice);
-        orderIdentifyMenuPrice.setText("가격 : "+params.get("price"));
+        orderIdentifyMenuPrice.setText(params.get("price"));
+
         TextView orderCancelBtn = (TextView)findViewById(R.id.orderCancelBtn);
         orderCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +169,7 @@ public class CustomerOrderIdentifyDialog extends AppCompatActivity {
             Log.i("Order","OrderList"+infos.size());
 
             finish();
+            Toast.makeText(getBaseContext(), "주문이 완료되었습니다.", Toast.LENGTH_LONG).show();
         }
     }
 

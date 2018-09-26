@@ -109,7 +109,7 @@ public class CustomerMyOrderAdapter extends RecyclerView.Adapter<CustomerMyOrder
         String new_date = date_format.format(orderInfo.getDate());
         holder.date.setText(new_date);
         holder.menuName.setText(orderInfo.getMenuName());
-        holder.price.setText(Integer.toString(orderInfo.getPrice()));
+        holder.price.setText(Integer.toString(orderInfo.getPrice()) + " 원");
     }
 
     @Override

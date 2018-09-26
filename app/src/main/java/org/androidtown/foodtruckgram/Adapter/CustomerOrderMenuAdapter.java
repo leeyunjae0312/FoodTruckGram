@@ -110,18 +110,18 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         holder.orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(foodTruckInfo.isOpen().equals("true")){
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("userId", UserInfo.getUserInfo().getUserId());
-                    params.put("tel", UserInfo.getUserInfo().getTel());
-                    Date date = new Date(System.currentTimeMillis());
-                    SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-                    String new_date = date_format.format(date);
-                    params.put("date",new_date);
-                    params.put("storeName", foodTruckInfo.getStoreName());
-                    Log.i("Order",foodTruckInfo.getStoreName());
-                    params.put("menuName", menuInfos.get(position).getMenuName());
-                    params.put("price", menuInfos.get(position).getMenuPrice());
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userId", UserInfo.getUserInfo().getUserId());
+                params.put("tel", UserInfo.getUserInfo().getTel());
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                String new_date = date_format.format(date);
+                params.put("date",new_date);
+                params.put("storeName", foodTruckInfo.getStoreName());
+                Log.i("Order",foodTruckInfo.getStoreName());
+                params.put("menuName", menuInfos.get(position).getMenuName());
+                params.put("price", menuInfos.get(position).getMenuPrice());
+                params.put("menuImg",menuInfos.get(position).getMenuImage());
 
                     Intent intent = new Intent(holder.context, CustomerOrderIdentifyDialog.class);
                     intent.putExtra("params",(HashMap)params);

@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,8 +49,6 @@ public class FoodTruckLocationActivity extends AppCompatActivity {
 
     private static int mMarkerID;
     private static String apiKey = "1c8d9930-5a2b-4ed2-8c32-fa7d9a216834";
-
-    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +140,10 @@ public class FoodTruckLocationActivity extends AppCompatActivity {
 
             findPath(tMapPointStart, tMapPointEnd);
         } else {
-            Toast.makeText(FoodTruckLocationActivity.this,"현재위치를 가져오지 못하였습니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(FoodTruckLocationActivity.this, "현재위치를 가져오지 못하였습니다.", Toast.LENGTH_SHORT).show();
             tMapView.setLocationPoint(foodturckLongitude, foodturckLatitude); //푸드트럭 위치만 찍기
         }
+
 
     }
 
@@ -162,15 +162,21 @@ public class FoodTruckLocationActivity extends AppCompatActivity {
         });
     }
 
+    String address;
+
     public void gpsToAddress(double foodturckLatitude, double foodturckLongitude) {
         //푸드트럭 위치 주소로 나타내기
 
+
         tmapdata.convertGpsToAddress(foodturckLatitude, foodturckLongitude, new TMapData.ConvertGPSToAddressListenerCallback() {
+
             @Override
             public void onConvertToGPSToAddress(String s) {
                 Log.i("toAddress", "주소 : " + s);
-             //   Toast.makeText(FoodTruckLocationActivity.this, s, Toast.LENGTH_SHORT).show();
-                Log.i("toAddress2", "주소 : " + s);
+                address = s.toString();
+                ActionBar actionBar = getSupportActionBar();
+                assert actionBar != null;
+                actionBar.setTitle(address);
             }
         });
     }

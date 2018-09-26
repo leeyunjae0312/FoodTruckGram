@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,11 +69,16 @@ public class MyOrderFragment extends Fragment {
         param.put("userId", UserInfo.getUserInfo().getUserId());
         orderDB.execute(param);
 
-        ImageView myOrderListRefreshBtn = (ImageView)view.findViewById(R.id.myOrderListRefreshBtn);
+        final ImageView myOrderListRefreshBtn = (ImageView)view.findViewById(R.id.myOrderListRefreshBtn);
         myOrderListRefreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateUI();
+                Animation anim = AnimationUtils.loadAnimation(
+                        view.getContext().getApplicationContext(), // 현재 화면의 제어권자
+                        R.anim.rotate_anim);    // 설정한 에니메이션 파일
+                myOrderListRefreshBtn.startAnimation(anim);
+
             }
         });
 
