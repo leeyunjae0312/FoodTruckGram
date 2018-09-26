@@ -256,11 +256,17 @@ public class MapFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-        double latitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
-        double longitude = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLongitude();
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        tMapView.setLocationPoint(longitude, latitude);
-        tMapView.setCenterPoint(longitude, latitude);
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+
+            tMapView.setLocationPoint(longitude, latitude);
+            tMapView.setCenterPoint(longitude, latitude);
+        } else {
+            Toast.makeText(getContext(),"현재위치를 가져오지 못하였습니다.",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
