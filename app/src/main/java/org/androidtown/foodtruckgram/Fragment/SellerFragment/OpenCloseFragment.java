@@ -107,7 +107,6 @@ public class OpenCloseFragment extends Fragment {
 
             @Override
             public boolean onPressUpEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                Toast.makeText(getActivity(), "onPressUp~!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
