@@ -105,7 +105,7 @@ public class CustomerMyOrderAdapter extends RecyclerView.Adapter<CustomerMyOrder
         // Set item views based on your views and data model
         //holder.deleteCheck.setImageResource(R.drawable.girl);  //menu image edit
         holder.storeName.setText(orderInfo.getStoreName());
-        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String new_date = date_format.format(orderInfo.getDate());
         holder.date.setText(new_date);
         holder.menuName.setText(orderInfo.getMenuName());

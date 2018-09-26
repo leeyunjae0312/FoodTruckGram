@@ -114,7 +114,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
                 params.put("userId", UserInfo.getUserInfo().getUserId());
                 params.put("tel", UserInfo.getUserInfo().getTel());
                 Date date = new Date(System.currentTimeMillis());
-                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String new_date = date_format.format(date);
                 params.put("date",new_date);
                 params.put("storeName", foodTruckInfo.getStoreName());
