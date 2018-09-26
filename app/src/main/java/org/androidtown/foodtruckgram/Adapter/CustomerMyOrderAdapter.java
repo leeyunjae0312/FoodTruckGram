@@ -2,12 +2,15 @@ package org.androidtown.foodtruckgram.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
+import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.Info.OrderInfo;
 import org.androidtown.foodtruckgram.R;
 import org.androidtown.foodtruckgram.Server.HttpClient;
@@ -59,6 +62,20 @@ public class CustomerMyOrderAdapter extends RecyclerView.Adapter<CustomerMyOrder
         this.myorderList = myorderList;
         mContext = context;
         this.myorder_count = myorder_count;
+    }
+
+    public void notifyData(ArrayList<OrderInfo> orderInfos){
+        myorderList = orderInfos;
+        Log.i("Order","notifyData()호출");
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<OrderInfo> getMyorderList() {
+        return myorderList;
+    }
+
+    public void setMyorderList(ArrayList<OrderInfo> myorderList) {
+        this.myorderList = myorderList;
     }
 
     // Easy access to the context object in the recyclerview

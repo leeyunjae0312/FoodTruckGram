@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Fragment;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -30,11 +32,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class MyOrderFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private CustomerMyOrderAdapter adapter;
+    private static CustomerMyOrderAdapter adapter;
     private TextView myorder_count;
     private List<FoodTruckInfo> foodTruckInfos;
 
@@ -63,8 +67,28 @@ public class MyOrderFragment extends Fragment {
         param.put("userId", UserInfo.getUserInfo().getUserId());
         orderDB.execute(param);
 
+        ImageView myOrderListRefreshBtn = (ImageView)view.findViewById(R.id.myOrderListRefreshBtn);
+        myOrderListRefreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUI();
+            }
+        });
+
         return view;
     }
+
+    public static CustomerMyOrderAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void updateUI(){
+        OrderDB orderDB = new OrderDB();
+        Map<String, String> param = new HashMap<>();
+        param.put("userId", UserInfo.getUserInfo().getUserId());
+        orderDB.execute(param);
+    }
+
 
     class OrderDB extends AsyncTask<Map<String, String>, Integer, String> {
 
@@ -105,6 +129,7 @@ public class MyOrderFragment extends Fragment {
                 Log.i("Order","OrderSize : "+infos.size());
                 //recyclerView.setHasFixedSize(true);
                 adapter = new CustomerMyOrderAdapter(getActivity(), infos, myorder_count);
+                adapter.notifyDataSetChanged();
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(adapter);
 
