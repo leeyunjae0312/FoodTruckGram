@@ -13,23 +13,35 @@
         android:background="@color/colorPrimary">
 
         <TextView
+            android:id="@+id/foodtruck_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_alignTop="@+id/imageView3"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             android:text="푸드트럭 이름"
-            android:textSize="20dp"
-            android:id="@+id/textView9" />
+            android:textSize="23dp" />
+
+        <ImageButton
+            android:id="@+id/foodtruck_detail_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/foodtruck_detail_name"
+            android:backgroundTint="#00ff0000"
+            android:padding="10dp"
+            android:src="@drawable/ic_navi_map" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView3"
-            android:layout_alignStart="@+id/textView9"
+            android:layout_alignStart="@+id/foodtruck_detail_name"
             android:layout_marginBottom="11dp"
-            android:text="소개글글글글글글글글글글글글글글글글글글글글글글글글글글" />
+            android:lineSpacingExtra="5dp"
+            android:text="맛있는 새우 #JMT#JMTGR" />
 
         <ImageView
             android:id="@+id/imageView3"

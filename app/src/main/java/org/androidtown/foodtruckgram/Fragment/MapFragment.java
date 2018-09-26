@@ -60,7 +60,6 @@ public class MapFragment extends Fragment {
 
     private RelativeLayout mapLayout;
 
-    private Handler handler = null;
     private String searchData; //////검색 주소
 
     private Button searchBtn;
@@ -221,9 +220,6 @@ public class MapFragment extends Fragment {
 
         // 마커 아이콘
         Bitmap bitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.marker);
-
-        TMapMarkerItem markerItem1 = new TMapMarkerItem();
-        TMapPoint tMapPoint1 = new TMapPoint(37.570841, 126.985302); // SKT타워
 
         if (isMarker) {
             tMapView.removeAllMarkerItem();

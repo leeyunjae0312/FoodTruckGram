@@ -50,8 +50,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Activity.DetailActivity"></activity>
         <activity android:name=".Activity.FavoriteActivity" />
-        <activity android:name=".Activity.CustomerOrderIdentifyDialog"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".Activity.CustomerCouponActivity" />
 
         <receiver
             android:name=".Activity.SMSReceiver"
@@ -62,7 +61,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <activity android:name=".Activity.CustomerCouponActivity" />
+        <activity android:name=".Activity.FoodTruckLocationActivity" />
+        <activity android:name=".Activity.CustomerOrderIdentifyDialog"></activity>
     </application>
 
 </manifest>

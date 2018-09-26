@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,6 +61,9 @@ public class DetailActivity extends AppCompatActivity {
     private ActionBar actionBar;
     FoodTruckInfo foodTruckInfo;
 
+    private TextView foodtruckName;
+    private ImageButton foodtruckLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +84,26 @@ public class DetailActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<String, String>();
         params.put("storeName", foodTruckInfo.getStoreName());
 
+        foodtruckName = (TextView) findViewById(R.id.foodtruck_detail_name);
+        foodtruckName.setText(foodTruckInfo.getStoreName());
+
         foodTruckReviewDB = new FoodTruckReviewDB();
         foodTruckReviewDB.execute(params);
 
         foodTruckDB = new FoodTruckDB();
         foodTruckDB.execute(params);
+
+        foodtruckLocation = (ImageButton) findViewById(R.id.foodtruck_detail_location);
+
+        foodtruckLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /////////////지도에 푸드트럭 위치 찍어주기!
+                Intent intent = new Intent(getApplicationContext(), FoodTruckLocationActivity.class);
+                intent.putExtra("FoodTruckInfo",foodTruckInfo);
+                startActivity(intent);
+            }
+        });
 
     }
 
