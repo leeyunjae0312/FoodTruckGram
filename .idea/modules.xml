@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FoodTruckGram.iml" filepath="$PROJECT_DIR$/FoodTruckGram.iml" />
       <module fileurl="file://$PROJECT_DIR$/FoodTruckGram-Client.iml" filepath="$PROJECT_DIR$/FoodTruckGram-Client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FoodTruckGram.iml" filepath="$PROJECT_DIR$/FoodTruckGram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

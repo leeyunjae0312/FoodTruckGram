@@ -57,7 +57,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="5dp"
-        android:text="사진 수정"
+        android:text="사진 선택"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
