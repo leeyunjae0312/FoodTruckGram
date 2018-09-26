@@ -143,16 +143,55 @@ public class SellerHomeActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode==RESULT_OK) {
-            foodTruckInfo = (FoodTruckInfo) data.getSerializableExtra("foodTruckInfo");
+            FoodTruckUpdateDB foodTruckDB = new FoodTruckUpdateDB();
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("userId", userInfo.getUserId());
+            foodTruckDB.execute(params);
 
             Log.i("Edit","Activity - UI 갱신");
             Log.i("Edit","foodTruckInfo.getMenuList().size()"+foodTruckInfo.getMenuList().size());
+
+        }
+    }
+
+    class FoodTruckUpdateDB extends AsyncTask<Map<String, String>, Integer, String> {
+
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST", serverURL_getFoodTruckInfo);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i("yunjae", "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i("yunjae", "body : "+body);
+
+            return body;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("yunjae", aVoid);
+
+            Gson gson = new Gson();
+
+            FoodTruckInfo info = gson.fromJson(aVoid, FoodTruckInfo.class);
+            foodTruckInfo = info;
+
             SellerMenuListAdapter adapter = menuFragment.getAdapter();
             adapter.notifyData(foodTruckInfo);
             viewPagerAdapter.switchFragment(2,new MenuFragment());
             RecyclerView recyclerView = (RecyclerView)findViewById(R.id.seller_menu_recyclerView);
             recyclerView.setAdapter(adapter);
-
         }
     }
 

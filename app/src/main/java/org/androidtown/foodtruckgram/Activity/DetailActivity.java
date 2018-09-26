@@ -126,17 +126,6 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==200 && resultCode==RESULT_OK) {
-
-            Log.i("Order","Activity - UI 갱신");
-            //MyOrderFragment.updateUI();
-
-        }
-    }
-
     class FoodTruckDB extends AsyncTask<Map<String, String>, Integer, String> {
 
         @Override
