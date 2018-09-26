@@ -146,5 +146,4 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         }
     }
 
-
 }
