@@ -102,8 +102,10 @@ public class FoodTruckInfo implements Serializable {
             }
         }
 
+        Log.i("Edit","메뉴 추가전 메뉴 갯수 : "+menuList.size());
         Log.i("Edit","메뉴 추가");
         menuList.add(menu);
+        Log.i("Edit","메뉴 추가후 메뉴 갯수 : "+menuList.size());
         return -1;
     }
 
