@@ -1,6 +1,7 @@
 package org.androidtown.foodtruckgram.Activity;
 
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,12 @@ public class FavoriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         setContentView(R.layout.activity_favorite);
 
         Map<String, String> params = new HashMap<String, String>();

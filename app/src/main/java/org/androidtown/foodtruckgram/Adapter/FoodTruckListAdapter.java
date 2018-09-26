@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.androidtown.foodtruckgram.Activity.DetailActivity;
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
@@ -37,14 +38,16 @@ public class FoodTruckListAdapter extends BaseAdapter {
     private ArrayList<FoodTruckInfo> foodTruckInfos = null;
     private int listCount = 0;
     private int count = 0;
+    public Context context;
     View convertView;
 
 
     UserInfo userInfo = UserInfo.getUserInfo();
     ImageView foodtruckFavoriteBtn;
 
-    public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos) {
+    public FoodTruckListAdapter(ArrayList<FoodTruckInfo> foodTruckInfos, Context context) {
         this.foodTruckInfos = foodTruckInfos;
+        this.context = context;
         //listCount = foodTruckInfos.size();
     }
 
@@ -96,10 +99,11 @@ public class FoodTruckListAdapter extends BaseAdapter {
 
         Log.i("Edit22", "base64 = " + base64);
         if(base64 != null && base64 != "") {
-            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            foodtruckImg.setImageBitmap(bitmap);
-            Log.i("Edit22", "menuImage = " + base64);
+//            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            foodtruckImg.setImageBitmap(bitmap);
+//            Log.i("Edit22", "menuImage = " + base64);
+            Picasso.with(context).load(base64).into(foodtruckImg);
         }
         else {
             foodtruckImg.setImageResource(R.drawable.burger);

@@ -73,6 +73,13 @@ public class CustomerHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         setContentView(R.layout.activity_customer_home);
 
         foodTruckDB = new FoodTruckDB();
@@ -198,9 +205,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
             currentMenu = R.id.navigation_home;
             setupViewPager(viewPager);
             prevMenuItem = bottomNavigationView.getMenu().getItem(0);
-
-
-            actionBar = getSupportActionBar();
 
 
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

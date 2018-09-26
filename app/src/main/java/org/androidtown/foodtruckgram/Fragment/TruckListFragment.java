@@ -42,7 +42,7 @@ public class TruckListFragment extends Fragment {
         if(foodTruckInfos != null) {
             // ListView, Adapter 생성 및 연결 ------------------------
             foodTruckListView = (ListView) view.findViewById(R.id.foodtruck_list_view);
-            FoodTruckListAdapter foodTruckListAdapter = new FoodTruckListAdapter(foodTruckInfos);
+            FoodTruckListAdapter foodTruckListAdapter = new FoodTruckListAdapter(foodTruckInfos, getContext());
             foodTruckListView.setAdapter(foodTruckListAdapter);
         }
         return view;

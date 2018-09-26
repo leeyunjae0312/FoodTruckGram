@@ -122,6 +122,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
                     Log.i("Order", foodTruckInfo.getStoreName());
                     params.put("menuName", menuInfos.get(position).getMenuName());
                     params.put("price", menuInfos.get(position).getMenuPrice());
+                    params.put("menuImg", menuInfos.get(position).getMenuImage());
 
                     Intent intent = new Intent(holder.context, CustomerOrderIdentifyDialog.class);
                     intent.putExtra("params", (HashMap) params);
@@ -132,6 +133,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
 
             }
         });
+
     }
 
     @Override
