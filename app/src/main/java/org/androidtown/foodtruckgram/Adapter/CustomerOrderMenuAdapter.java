@@ -110,25 +110,24 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         holder.orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(foodTruckInfo.isOpen().equals("treu")){
+                if (foodTruckInfo.isOpen().equals("treu")) {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("userId", UserInfo.getUserInfo().getUserId());
                     params.put("tel", UserInfo.getUserInfo().getTel());
                     Date date = new Date(System.currentTimeMillis());
                     SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
                     String new_date = date_format.format(date);
-                    params.put("date",new_date);
+                    params.put("date", new_date);
                     params.put("storeName", foodTruckInfo.getStoreName());
-                    Log.i("Order",foodTruckInfo.getStoreName());
+                    Log.i("Order", foodTruckInfo.getStoreName());
                     params.put("menuName", menuInfos.get(position).getMenuName());
                     params.put("price", menuInfos.get(position).getMenuPrice());
 
                     Intent intent = new Intent(holder.context, CustomerOrderIdentifyDialog.class);
-                    intent.putExtra("params",(HashMap)params);
+                    intent.putExtra("params", (HashMap) params);
                     ((Activity) holder.context).startActivityForResult(intent, 200);
-                }
-                else{
-                    Toast.makeText(holder.context,"현재 영업중이지 않은 푸드트럭입니다. \n다음에 다시 이용해주세요",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(holder.context, "현재 영업중이지 않은 푸드트럭입니다. \n다음에 다시 이용해주세요", Toast.LENGTH_LONG).show();
                 }
 
             }
