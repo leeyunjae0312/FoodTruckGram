@@ -63,7 +63,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                 @Override
                 public void onClick(View view) {
                     int position = getLayoutPosition();
-                    Toast.makeText(context, name.getText() + Integer.toString(position), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, name.getText() + Integer.toString(position) + "가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                     adapter.removeItem(position);
 
                 }
@@ -77,7 +77,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                 @Override
                 public void onClick(View v) {
                     int position = getLayoutPosition();
-                    Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, SellerMenuEditActivity.class);
                     intent.putExtra("foodTruckInfo", foodTruckInfo);
                     intent.putExtra("menuImage", menuImageURI.getText());
@@ -95,7 +95,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         public void onClick(View view) {
             int position = getLayoutPosition(); // gets item position
             // We can access the data within the views
-            Toast.makeText(context, name.getText() + Integer.toString(position), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, name.getText() + Integer.toString(position), Toast.LENGTH_SHORT).show();
             adapter.removeItem(position);
 
         }

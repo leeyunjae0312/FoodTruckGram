@@ -146,7 +146,17 @@ public class SellerMenuEditActivity extends AppCompatActivity {
 //                        params.put("menuImage", base64);
 //                    }
 //                    else {
-                    params.put("menuImage", "");
+                    if(menuImage != null && !menuImage.equals("")) {
+//            byte[] decodedString = Base64.decode(menuImage, Base64.NO_WRAP);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        //Picasso.with(this).load(menuImage).into(imageView);
+                        //imageView.setImageBitmap(bitmap);
+                        params.put("menuImage", menuImage);
+                    }
+                    else {
+                        params.put("menuImage", "");
+                    }
+
                     params.put("menuPrice", menuPrice);
                     params.put("menuIntroduce", menuIntroduce);
                     params.put("storeName", foodTruckInfo.getStoreName());
@@ -154,7 +164,7 @@ public class SellerMenuEditActivity extends AppCompatActivity {
                     MenuUpdateAndInsetDB menuUpdateAndInsetDB = new MenuUpdateAndInsetDB();
                     menuUpdateAndInsetDB.execute(params);
 
-
+                    Toast.makeText(getApplicationContext(), "메뉴가 추가/수정 되었습니다.", Toast.LENGTH_SHORT).show();
                 }
 
             }
