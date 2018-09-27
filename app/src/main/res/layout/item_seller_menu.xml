@@ -49,13 +49,13 @@
 
             <ImageButton
                 android:id="@+id/menuItemRemoveBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/transparency"
                 android:padding="10dp"
-                app:srcCompat="@drawable/delete" />
+                app:srcCompat="@drawable/ic_error" />
 
         </LinearLayout>
 
