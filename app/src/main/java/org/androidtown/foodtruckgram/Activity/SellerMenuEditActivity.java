@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.androidtown.foodtruckgram.Info.FoodTruckInfo;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
 import org.androidtown.foodtruckgram.R;
@@ -77,9 +79,10 @@ public class SellerMenuEditActivity extends AppCompatActivity {
 
         imageView = (ImageView)findViewById(R.id.imageView);
         if(menuImage != null && !menuImage.equals("")) {
-            byte[] decodedString = Base64.decode(menuImage, Base64.NO_WRAP);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            imageView.setImageBitmap(bitmap);
+//            byte[] decodedString = Base64.decode(menuImage, Base64.NO_WRAP);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            Picasso.with(this).load(menuImage).into(imageView);
+            //imageView.setImageBitmap(bitmap);
         }
         else {
             imageView.setImageResource(R.drawable.burger);
