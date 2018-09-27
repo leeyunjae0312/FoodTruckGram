@@ -114,28 +114,27 @@ public class SellerMenuEditActivity extends AppCompatActivity {
 
                     String file = image;
                     //FileInputStream fis = new FileInputStream(file);
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                    Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    String base64 = null;
-                    if(baos != null && file != null) {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
-                        byte[] byteData = baos.toByteArray();
-
-                        base64 = Base64.encodeToString(byteData, Base64.NO_WRAP);
-                        menuImage = base64;
-                    }
+//                    BitmapFactory.Options options = new BitmapFactory.Options();
+//                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//                    Bitmap bitmap = BitmapFactory.decodeFile(file, options);
+//
+//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                    String base64 = null;
+//                    if(baos != null && file != null) {
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+//                        byte[] byteData = baos.toByteArray();
+//
+//                        base64 = Base64.encodeToString(byteData, Base64.NO_WRAP);
+//                        menuImage = base64;
+//                    }
 
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("menuName", menuName);
-                    if(base64 != null) {
-                        params.put("menuImage", base64);
-                    }
-                    else {
-                       params.put("menuImage", "");
-                    }
+//                    if(base64 != null) {
+//                        params.put("menuImage", base64);
+//                    }
+//                    else {
+                    params.put("menuImage", "");
                     params.put("menuPrice", menuPrice);
                     params.put("menuIntroduce", menuIntroduce);
                     params.put("storeName", foodTruckInfo.getStoreName());
@@ -173,6 +172,7 @@ public class SellerMenuEditActivity extends AppCompatActivity {
                 image = getRealPathFromURI(data.getData());
                 menuImage = getRealPathFromURI(data.getData());
                 Log.i("ImageURI", "uri = " + data.getData().getEncodedPath());
+                Toast.makeText(getApplicationContext(), "용량이 초과되어 사진을 첨부할 수 없습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -272,24 +272,5 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             }
         }
     }
-
-    void save() {
-        // data/data/패키지명/files/  내부 메모리 경로
-        path = "/data/data/org.androidtown.foodtruckgram/files/image.jpg";
-        File file = new File(path);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            String str = "파일 업로드 테스트";
-            // String.getBytes() 스트링을 바이트 배열로 변환
-            fos.write(str.getBytes()); // 파일이 저장됨
-            fos.close(); // 스트림 종료
-            Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_LONG).show(); // 간단한 메세지 출력
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 }
