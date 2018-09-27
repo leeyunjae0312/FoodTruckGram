@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.androidtown.foodtruckgram.Activity.CustomerHomeActivity;
 import org.androidtown.foodtruckgram.Activity.CustomerOrderIdentifyDialog;
@@ -48,7 +49,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         public TextView menuName, menuPrice,orderBtn;
         public ImageView menuImage;
         private CustomerOrderMenuAdapter adapter;
-        private Context context;
+        public Context context;
 
         public ViewHolder(final Context context, View itemView, final CustomerOrderMenuAdapter adapter) {
             super(itemView);
@@ -69,10 +70,12 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
 
     FoodTruckInfo foodTruckInfo;
     ArrayList<MenuInfo> menuInfos;
+    public Context mContext;
 
-    public CustomerOrderMenuAdapter(FoodTruckInfo foodTruckInfo){
+    public CustomerOrderMenuAdapter(FoodTruckInfo foodTruckInfo, Context context){
         this.foodTruckInfo = foodTruckInfo;
         menuInfos = foodTruckInfo.getMenuList();
+        mContext = context;
     }
 
     @Override
@@ -99,9 +102,10 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
         }
 
         if(base64 != null && base64 != "") {
-            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.menuImage.setImageBitmap(bitmap);
+//            byte[] decodedString = Base64.decode(base64, Base64.NO_WRAP);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            holder.menuImage.setImageBitmap(bitmap);
+            Picasso.with(mContext).load(base64).resize(300,320).into(holder.menuImage);
         }
         else {
             holder.menuImage.setImageResource(R.drawable.burger);

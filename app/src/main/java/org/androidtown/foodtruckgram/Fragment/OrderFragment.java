@@ -43,7 +43,7 @@ public class OrderFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.customerOrderMenuRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CustomerOrderMenuAdapter adapter = new CustomerOrderMenuAdapter(info);
+        CustomerOrderMenuAdapter adapter = new CustomerOrderMenuAdapter(info, getContext());
         recyclerView.setAdapter(adapter);
 
         return view;
