@@ -132,6 +132,7 @@ public class MapFragment extends Fragment {
 
         tMapView = new TMapView(getActivity());
 
+
         //세팅
         tMapView.setSKTMapApiKey(apiKey);
         tMapView.setCompassMode(true);
@@ -140,7 +141,10 @@ public class MapFragment extends Fragment {
         tMapView.setMapType(TMapView.MAPTYPE_STANDARD);  //일반지도
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         tMapView.setTrackingMode(true);
-        tMapView.setSightVisible(true);
+        tMapView.setSightVisible(false);
+
+        tMapView.setCenterPoint(126.97794509999994,37.5662952);
+        tMapView.setLocationPoint(126.97794509999994,37.5662952); //서울시청
 
         gps = new TMapGpsManager(getActivity());
 

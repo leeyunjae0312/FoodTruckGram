@@ -81,6 +81,10 @@ public class OpenCloseFragment extends Fragment {
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         tMapView.setTrackingMode(false);
         tMapView.setSightVisible(false);
+
+        tMapView.setCenterPoint(126.97794509999994,37.5662952);
+        tMapView.setLocationPoint(126.97794509999994,37.5662952); //서울시청
+
         mapLayout.addView(tMapView);
 
         tMapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
