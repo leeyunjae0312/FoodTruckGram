@@ -96,6 +96,15 @@ public class SellerMenuEditActivity extends AppCompatActivity {
             }
         });
 
+        TextView menuEditCancelBtn = (TextView) findViewById(R.id.editCancelBtn);
+
+        menuEditCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         final TextView menuEditBtn = (TextView) findViewById(R.id.menuEditBtn);
         menuEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

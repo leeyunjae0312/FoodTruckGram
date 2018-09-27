@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
         public ImageButton remove, edit;
         private SellerMenuListAdapter adapter;
         private Context context;
+        private LinearLayout menulayout;
 
         String serverURL = "http://" + HttpClient.ipAdress + HttpClient.serverPort + HttpClient.urlBase + "/s/updateMenu";
 
@@ -64,14 +66,16 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                     Toast.makeText(context, name.getText() + Integer.toString(position), Toast.LENGTH_SHORT).show();
                     adapter.removeItem(position);
 
-
                 }
             });
 
-            edit = (ImageButton) itemView.findViewById(R.id.menuItemEditBtn);
-            edit.setOnClickListener(new View.OnClickListener() {
+          //  edit = (ImageButton)itemView.findViewById(R.id.menuItemEditBtn);
+
+            menulayout = (LinearLayout)itemView.findViewById(R.id.menu_layout);
+
+            menulayout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
                     int position = getLayoutPosition();
                     Toast.makeText(context, name.getText() + Integer.toString(position) + "Edit", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, SellerMenuEditActivity.class);
@@ -82,7 +86,6 @@ public class SellerMenuListAdapter extends RecyclerView.Adapter<SellerMenuListAd
                     intent.putExtra("menuIntroduce", introduce.getText());
                     intent.putExtra("serverURL", serverURL);
                     context.startActivity(intent);
-
                 }
             });
 

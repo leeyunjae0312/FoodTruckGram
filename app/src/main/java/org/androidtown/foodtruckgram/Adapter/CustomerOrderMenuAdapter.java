@@ -130,10 +130,8 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
                 } else {
                     Toast.makeText(holder.context, "현재 영업중이지 않은 푸드트럭입니다. \n다음에 다시 이용해주세요", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
     }
 
     @Override
