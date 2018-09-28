@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import org.androidtown.foodtruckgram.Adapter.CustomerMyOrderAdapter;
 import org.androidtown.foodtruckgram.Info.MenuInfo;
@@ -58,8 +59,13 @@ public class CustomerOrderIdentifyDialog extends AppCompatActivity {
 
 
         ImageView orderIdentifyMenuImage = (ImageView)findViewById(R.id.orderIdentifyMenuImage);
-//        orderIdentifyMenuImage.setImageResource(Integer.parseInt(params.get("menuImg")));
-        orderIdentifyMenuImage.setImageResource(R.drawable.sample);
+        if(params.get("menuImg") != null && !params.get("menuImg").equals("")) {
+            Log.i("yunjae", "param = " + params.get("menuImg"));
+            Picasso.with(this).load(params.get("menuImg")).into(orderIdentifyMenuImage);
+        }
+        else {
+            orderIdentifyMenuImage.setImageResource(R.drawable.burger);
+        }
 
         TextView orderIdentifyMenuName = (TextView)findViewById(R.id.orderIdentifyMenuName);
         orderIdentifyMenuName.setText(params.get("menuName"));
