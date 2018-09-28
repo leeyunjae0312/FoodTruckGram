@@ -81,6 +81,10 @@ public class OpenCloseFragment extends Fragment {
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         tMapView.setTrackingMode(false);
         tMapView.setSightVisible(false);
+
+        tMapView.setCenterPoint(126.97794509999994,37.5662952);
+        tMapView.setLocationPoint(126.97794509999994,37.5662952); //서울시청
+
         mapLayout.addView(tMapView);
 
         tMapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
@@ -95,7 +99,7 @@ public class OpenCloseFragment extends Fragment {
                 tItem.setName("오픈위치");
                 tItem.setVisible(TMapMarkerItem.VISIBLE);
 
-                Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.location_pin);
+                Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.marker);
                 tItem.setIcon(bitmap);
 
                 // 핀모양으로 된 마커를 사용할 경우 마커 중심을 하단 핀 끝으로 설정.
