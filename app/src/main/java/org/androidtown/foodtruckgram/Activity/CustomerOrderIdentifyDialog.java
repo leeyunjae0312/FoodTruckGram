@@ -73,6 +73,9 @@ public class CustomerOrderIdentifyDialog extends AppCompatActivity {
         TextView orderIdentifyMenuPrice = (TextView)findViewById(R.id.orderIdentifyMenuPrice);
         orderIdentifyMenuPrice.setText(params.get("price"));
 
+        TextView orderIdentifyMenuIntroduce = (TextView)findViewById(R.id.orderIdentifyMenuIntroduce);
+        orderIdentifyMenuIntroduce.setText(params.get("introduce"));
+
         TextView orderCancelBtn = (TextView)findViewById(R.id.orderCancelBtn);
         orderCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override

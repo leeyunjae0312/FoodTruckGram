@@ -33,43 +33,36 @@
             android:textSize="15sp"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:gravity="center|left"
-            android:text="가격"
-            android:textColor="@color/black" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="5">
+            android:layout_marginTop="10dp"
+            android:layout_weight="5"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_weight="1"
+                android:id="@+id/orderIdentifyMenuIntroduce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:padding="10dp"
-                android:text="새콤 달콤한 소스와 함께 먹는"/>
+                android:text="새콤 달콤한 소스와 함께 먹는" />
 
             <TextView
-                android:layout_weight="2"
                 android:id="@+id/orderIdentifyMenuPrice"
                 android:layout_width="match_parent"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:gravity="right|center"
-                android:text="메뉵 가격"
+                android:padding="10dp"
+                android:text="메뉴 가격"
                 android:textColor="@color/black" />
+
             <TextView
-                android:gravity="right|center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="원"/>
+                android:gravity="right|center"
+                android:text="원" />
         </LinearLayout>
 
 

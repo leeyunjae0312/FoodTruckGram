@@ -127,6 +127,7 @@ public class CustomerOrderMenuAdapter extends RecyclerView.Adapter<CustomerOrder
                     params.put("menuName", menuInfos.get(position).getMenuName());
                     params.put("price", menuInfos.get(position).getMenuPrice());
                     params.put("menuImg", menuInfos.get(position).getMenuImage());
+                    params.put("introduce",menuInfos.get(position).getMenuIntroduce());
 
                     Intent intent = new Intent(holder.context, CustomerOrderIdentifyDialog.class);
                     intent.putExtra("params", (HashMap) params);
