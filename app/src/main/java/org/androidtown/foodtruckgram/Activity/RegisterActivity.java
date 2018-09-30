@@ -53,20 +53,25 @@ public class RegisterActivity extends AppCompatActivity {
                 if (isCheckId == false) {
                     Toast.makeText(getApplicationContext(), "아이디 중복을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (checkPW() && checkRole() && checkTel()) {
+                    if (checkRole()) {
+                        if (checkPW() && checkTel()) {
 
-                        userName = ((EditText) findViewById(R.id.editText_name)).getText().toString();
+                            userName = ((EditText) findViewById(R.id.editText_name)).getText().toString();
 
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("userId", userId);
-                        params.put("password", password);
-                        params.put("userName", userName);
-                        params.put("role", role);
-                        params.put("tel", tel);
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("userId", userId);
+                            params.put("password", password);
+                            params.put("userName", userName);
+                            params.put("role", role);
+                            params.put("tel", tel);
 
 
-                        registDB RDB = new registDB();
-                        RDB.execute(params);
+                            registDB RDB = new registDB();
+                            RDB.execute(params);
+                        }
+                    }
+                    else {
+                        finish();
                     }
                 }
 
@@ -102,8 +107,9 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean checkRole(){
         if(((RadioButton)findViewById(R.id.radioButton_seller)).isChecked()){
             //role="S";
-            role="C";
+            //role="C";
             Toast.makeText(getApplicationContext(),"판매자는 운영측에 사전 등록 후 이용해주세요.\nSeller Version Test용 id:aaa,pw:1234",Toast.LENGTH_LONG).show();
+            return false;
         }
         else
             role="C";
