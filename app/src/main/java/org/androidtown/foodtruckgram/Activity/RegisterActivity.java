@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (isCheckId == false) {
                     Toast.makeText(getApplicationContext(), "아이디 중복을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (checkPW() && checkGender() && checkTel()) {
+                    if (checkPW() && checkRole() && checkTel()) {
 
                         userName = ((EditText) findViewById(R.id.editText_name)).getText().toString();
 
@@ -99,9 +99,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkGender(){
-        if(((RadioButton)findViewById(R.id.radioButton_seller)).isChecked())
-            role="S";
+    private boolean checkRole(){
+        if(((RadioButton)findViewById(R.id.radioButton_seller)).isChecked()){
+            //role="S";
+            role="C";
+            Toast.makeText(getApplicationContext(),"판매자는 운영측에 사전 등록 후 이용해주세요.\nSeller Version Test용 id:aaa,pw:1234",Toast.LENGTH_LONG).show();
+        }
         else
             role="C";
         return true;

@@ -33,10 +33,16 @@ public class HomeAutoImgScrollAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.item_home_auto_image,null);
         ImageView image_container = (ImageView) v.findViewById(R.id.homeImgContainer);
-        if(position%2==0)
+        /*if(position%2==0)
             image_container.setImageResource(R.drawable.sample_img); //이부분을 데이터셋의 이미지경로로 넣기!
         else
+            image_container.setImageResource(R.drawable.festival);*/
+        if(position==0)
+            image_container.setImageResource(R.drawable.sample_img);
+        else if(position==1)
             image_container.setImageResource(R.drawable.festival);
+        else
+            image_container.setImageResource(R.drawable.sample_img2);
         //Glide.with(context).load(data.get(position)).into(image_container);
         container.addView(v);
         return v;
